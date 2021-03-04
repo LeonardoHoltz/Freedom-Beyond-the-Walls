@@ -11,6 +11,9 @@ namespace FBTW.Units.Player
     {
         private NavMeshAgent navAgent;
 
+        public int foodCost;
+        public int gasCost;
+        public int bladeCost;
 
         private void OnEnable()
         {

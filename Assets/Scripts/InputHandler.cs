@@ -172,13 +172,11 @@ namespace FBTW.InputManager
         private void AddUnitToList(Transform unit)
         {
             listSelectedUnits.Add(unit);
-            Debug.Log(listSelectedUnits.Count);
         }
 
         private void RemoveUnitFromList(Transform unit)
         {
             listSelectedUnits.Remove(unit);
-            Debug.Log(listSelectedUnits.Count);
         }
 
         private bool IsUnitInList(Transform unit)

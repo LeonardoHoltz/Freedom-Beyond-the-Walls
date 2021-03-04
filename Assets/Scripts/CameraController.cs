@@ -23,6 +23,8 @@ public class CameraController : MonoBehaviour
 
     // Camera Zoom Speed
     public Vector3 zoomAmount;
+    public int zoomMin = 10;
+    public int zoomMax = 300;
 
     // Storage of the camera:
     // Vectors stores positions and quaternions stores rotations
@@ -100,9 +102,19 @@ public class CameraController : MonoBehaviour
         }
 
         // newZoom based on Mouse ScrollWheel
-        if (Input.mouseScrollDelta.y != 0)
+        if (Input.mouseScrollDelta.y > 0)
         {
-            newZoom += Input.mouseScrollDelta.y * zoomAmount;
+            if(newZoom.y > zoomMin)
+            {
+                newZoom += Input.mouseScrollDelta.y * zoomAmount;
+            }
+        }
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            if (newZoom.y < zoomMax)
+            {
+                newZoom += Input.mouseScrollDelta.y * zoomAmount;
+            }
         }
 
         /* Camera Rig new position and rotation based on an interpolation between the last position
