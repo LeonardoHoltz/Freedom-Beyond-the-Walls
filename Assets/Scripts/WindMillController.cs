@@ -8,7 +8,7 @@ using FBTW.Player;
 public class WindMillController : MonoBehaviour
 {
     private float timer = 0.0f;
-    private float waitTime = 5.0f;
+    public float waitTime = 5.0f;
 
     public GameObject windmillObject;
 
@@ -41,7 +41,7 @@ public class WindMillController : MonoBehaviour
         {
             timer = 0.0f;
             ResourceManagement.IncreaseFood(1);
-            Debug.Log("Food: " + ResourceManagement.getFood());
+            //Debug.Log("Food: " + ResourceManagement.getFood());
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -52,7 +52,7 @@ public class WindMillController : MonoBehaviour
                 child = Instantiate(unit, new Vector3(windmillPosition.x + 5, 0, windmillPosition.z + 5), Quaternion.identity);
                 child.transform.SetParent(parent);
                 ResourceManagement.DecreaseFood(unitFoodCost);
-                Debug.Log("Soldier created using 2 foods, foods remaining: " + ResourceManagement.getFood());
+                //Debug.Log("Soldier created using 2 foods, foods remaining: " + ResourceManagement.getFood());
             }
             
         }

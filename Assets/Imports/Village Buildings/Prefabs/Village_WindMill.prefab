@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3363324}
   - component: {fileID: 2360462}
   - component: {fileID: 6415848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,9 @@ GameObject:
   m_Component:
   - component: {fileID: 406706}
   - component: {fileID: 1728519371834405110}
-  m_Layer: 0
+  - component: {fileID: 3231617933928714720}
+  - component: {fileID: 160882749800223488}
+  m_Layer: 8
   m_Name: Village_WindMill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,6 +143,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36fd194b5f43b5a46841bda4076508c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitTime: 1
+  windmillObject: {fileID: 0}
+  unit: {fileID: 0}
+  parent: {fileID: 0}
+  child: {fileID: 0}
+  unitFoodCost: 0
+  unitGasCost: 0
+  unitBladeCost: 0
+--- !u!114 &3231617933928714720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07ce676d7afda4dabb3b0f7dd5e654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!208 &160882749800223488
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133066}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 10, y: 17.5, z: 10}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 11, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &139130
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +195,7 @@ GameObject:
   - component: {fileID: 3339936}
   - component: {fileID: 2326212}
   - component: {fileID: 6460948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +289,7 @@ GameObject:
   - component: {fileID: 3319604}
   - component: {fileID: 2345580}
   - component: {fileID: 6498434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder.023
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +383,7 @@ GameObject:
   - component: {fileID: 3342716}
   - component: {fileID: 2397246}
   - component: {fileID: 6470288}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube.038
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,6 +5,9 @@ using UnityEngine;
 using FBTW.Player;
 using FBTW.Units.Player;
 
+using System.Linq;
+using System;
+
 namespace FBTW.InputManager
 {
     public class InputHandler : MonoBehaviour
@@ -103,7 +106,7 @@ namespace FBTW.InputManager
                             break;
                         default:
                             // move
-                            MoveSelectedUnits();
+                            MoveSelectedUnits(hit.point);
                             break;
                     }
                 }
@@ -215,21 +218,64 @@ namespace FBTW.InputManager
             return viewportBounds.Contains(cam.WorldToViewportPoint(tf.position));
         }
 
-        private void MoveSelectedUnits()
+        private void MoveSelectedUnits(Vector3 destination)
         {
+            
+            List<float> ringDistance = new List<float>();
+            List<int> ringPosition = new List<int>();
+
+            ringDistance.Add(1.5f);
+            ringPosition.Add(5);
+
+            for(int i = 0; i < listSelectedUnits.Count; i++)
+            {
+                if (i == ringPosition.Sum() + 1)
+                {
+                    ringPosition.Add((int)Math.Floor(2 * 3.14f * ringPosition.Count));
+                    ringDistance.Add(ringDistance[ringDistance.Count - 1] + 1.5f);
+                }
+            }
+            
+            List<Vector3> targetPositionList = GetPositionListAround(destination, ringDistance, ringPosition);
+
+            int targetPositionListIndex = 0;
+
             foreach (Transform unit in listSelectedUnits)
             {
                 PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                pU.MoveUnit(hit.point);
+                pU.MoveUnit(targetPositionList[targetPositionListIndex]);
+                targetPositionListIndex = (targetPositionListIndex + 1) % targetPositionList.Count;
             }
         }
 
-    }
-    public static class hasComponent
-    {
-        public static bool HasComponent<T>(this GameObject flag) where T : Component
+        private List<Vector3> GetPositionListAround(Vector3 startPosition, List<float> ringDistanceArray, List<int> ringPositionCountArray)
         {
-            return flag.GetComponent<T>() != null;
+            List<Vector3> positionList = new List<Vector3>();
+            positionList.Add(startPosition);
+            for (int i = 0; i < ringDistanceArray.Count; i++)
+            {
+                positionList.AddRange(GetPositionListAround(startPosition, ringDistanceArray[i], ringPositionCountArray[i]));
+            }
+
+            return positionList;
+        }
+
+        private List<Vector3> GetPositionListAround(Vector3 startPosition, float distance, int positionCount)
+        {
+            List<Vector3> positionList = new List<Vector3>();
+            for (int i = 0; i < positionCount; i++)
+            {
+                float angle = i * (360 / positionCount);
+                Vector3 dir = ApplyRotationToVector(new Vector3(1, 0, 0), angle);
+                Vector3 position = startPosition + dir * distance;
+                positionList.Add(position);
+            }
+            return positionList;
+        }
+
+        private Vector3 ApplyRotationToVector(Vector3 vec, float angle)
+        {
+            return Quaternion.Euler(0, angle, 0) * vec;
         }
     }
 }
