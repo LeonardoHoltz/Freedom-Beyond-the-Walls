@@ -111,6 +111,13 @@ namespace FBTW.InputManager
                     }
                 }
             }
+
+            // temporary take damage to test health bar
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                DamageSelectedUnits(1);
+            }
+
         }
 
         private void SelectUnit(Transform unit, bool isMultiSelection)
@@ -277,6 +284,16 @@ namespace FBTW.InputManager
         {
             return Quaternion.Euler(0, angle, 0) * vec;
         }
+
+        private void DamageSelectedUnits(int damage)
+        {
+            foreach (Transform unit in listSelectedUnits)
+            {
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                pU.TakeDamage(damage);
+            }
+        }
+
     }
 }
 
