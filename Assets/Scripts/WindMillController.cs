@@ -4,6 +4,7 @@ using UnityEngine;
 
 using FBTW.Resources;
 using FBTW.Player;
+using FBTW.HUD;
 
 public class WindMillController : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class WindMillController : MonoBehaviour
         {
             timer = 0.0f;
             ResourceManagement.IncreaseFood(1);
+            
             //Debug.Log("Food: " + ResourceManagement.getFood());
         }
 
@@ -56,5 +58,7 @@ public class WindMillController : MonoBehaviour
             }
             
         }
+        // Set the current amount of food to display on HUD
+        HUD.instance.SetResourceValues(ResourceManagement.getFood());
     }
 }
