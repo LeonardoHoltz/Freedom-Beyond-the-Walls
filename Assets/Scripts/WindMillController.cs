@@ -5,6 +5,7 @@ using UnityEngine;
 using FBTW.Resources;
 using FBTW.Player;
 using FBTW.HUD;
+using FBTW.Units.Player;
 
 public class WindMillController : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class WindMillController : MonoBehaviour
 
     public Transform parent;
     public GameObject child;
+
+    public static RaycastHit hit;
+    private float deltaX = 7.0f;
+    private float deltaZ = 7.0f;
 
     Vector3 windmillPosition;
 
@@ -33,17 +38,17 @@ public class WindMillController : MonoBehaviour
         parent = GameObject.Find("Survey Corps").transform;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         timer += Time.deltaTime;
 
+        // food
         if(timer >= waitTime)
         {
             timer = 0.0f;
             ResourceManagement.IncreaseFood(1);
             
-            //Debug.Log("Food: " + ResourceManagement.getFood());
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -54,7 +59,23 @@ public class WindMillController : MonoBehaviour
                 child = Instantiate(unit, new Vector3(windmillPosition.x + 5, 0, windmillPosition.z + 5), Quaternion.identity);
                 child.transform.SetParent(parent);
                 ResourceManagement.DecreaseFood(unitFoodCost);
-                //Debug.Log("Soldier created using 2 foods, foods remaining: " + ResourceManagement.getFood());
+
+                PlayerUnit pU = child.gameObject.GetComponent<PlayerUnit>();
+
+                // Create Ray
+                Ray ray = Camera.main.ScreenPointToRay(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
+
+                // Check if we hit something
+                while (Physics.Raycast(ray, out hit) && hit.transform.gameObject.tag == "HumanUnit")
+                {
+                    deltaX += 2.0f;
+                    deltaZ += 2.0f;
+                    ray = Camera.main.ScreenPointToRay(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
+                };
+
+                pU.MoveUnit(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
+                deltaX = 7.0f;
+                deltaZ = 7.0f;
             }
             
         }

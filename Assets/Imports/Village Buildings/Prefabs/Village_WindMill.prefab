@@ -104,7 +104,6 @@ GameObject:
   m_Component:
   - component: {fileID: 406706}
   - component: {fileID: 1728519371834405110}
-  - component: {fileID: 3231617933928714720}
   - component: {fileID: 160882749800223488}
   m_Layer: 8
   m_Name: Village_WindMill
@@ -151,22 +150,6 @@ MonoBehaviour:
   unitFoodCost: 0
   unitGasCost: 0
   unitBladeCost: 0
---- !u!114 &3231617933928714720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 133066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d07ce676d7afda4dabb3b0f7dd5e654, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!208 &160882749800223488
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -174,7 +157,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133066}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
   m_Extents: {x: 10, y: 17.5, z: 10}
