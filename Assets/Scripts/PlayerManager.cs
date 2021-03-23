@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using FBTW.InputManager;
+using FBTW.HUD;
 
 namespace FBTW.Player
 {
@@ -11,6 +12,8 @@ namespace FBTW.Player
         public static PlayerManager instance; // Singleton
 
         public Transform playerUnits;
+
+        private int m_playerUnitCount;
 
         // Start is called before the first frame update
         void Start()
@@ -22,7 +25,16 @@ namespace FBTW.Player
         void Update()
         {
             InputHandler.instance.HandleUnitMovement();
+            foreach(Transform child in playerUnits)
+            {
+                if(child.name == "Survey Corps")
+                {
+                    m_playerUnitCount = child.childCount;
+                }
+            }
+            HUD.HUD.instance.SetUnitCount(m_playerUnitCount);
         }
+
     }
 }
 
