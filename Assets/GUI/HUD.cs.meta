@@ -3,7 +3,10 @@ guid: d3c234d494822ba4182d9666b240a29f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_resourceSkin: {instanceID: 0}
+  - m_foodTexture: {instanceID: 0}
+  - m_unitTexture: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
