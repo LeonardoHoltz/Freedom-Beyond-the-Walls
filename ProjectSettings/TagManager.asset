@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TitanUnit
   - HumanUnit
+  - HorseUnit
   layers:
   - Default
   - TransparentFX

@@ -11,15 +11,16 @@ public class WindMillController : MonoBehaviour
 {
     private float timer = 0.0f;
     public float waitTime = 5.0f;
+    public float cooldownTime = 0.0f;
+    public float maxCooldownTime = 1.0f;
 
     public GameObject windmillObject;
 
-    public GameObject unit;
+    public GameObject unit, horse;
 
     public Transform parent;
     public GameObject child;
 
-    public static RaycastHit hit;
     private float deltaX = 7.0f;
     private float deltaZ = 7.0f;
 
@@ -42,44 +43,84 @@ public class WindMillController : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        cooldownTime += Time.deltaTime;
 
         // food
-        if(timer >= waitTime)
+        if (timer >= waitTime)
         {
             timer = 0.0f;
             ResourceManagement.IncreaseFood(1);
             
         }
 
+        // Connie
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if(ResourceManagement.getFood() >= unitFoodCost)
+            // check the cooldown
+            if (cooldownTime >= maxCooldownTime)
             {
-                
-                child = Instantiate(unit, new Vector3(windmillPosition.x + 5, 0, windmillPosition.z + 5), Quaternion.identity);
-                child.transform.SetParent(parent);
-                ResourceManagement.DecreaseFood(unitFoodCost);
-
-                PlayerUnit pU = child.gameObject.GetComponent<PlayerUnit>();
-
-                // Create Ray
-                Ray ray = Camera.main.ScreenPointToRay(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
-
-                // Check if we hit something
-                while (Physics.Raycast(ray, out hit) && hit.transform.gameObject.tag == "HumanUnit")
+                // check if has food enough
+                if (ResourceManagement.getFood() >= unitFoodCost)
                 {
-                    deltaX += 2.0f;
-                    deltaZ += 2.0f;
-                    ray = Camera.main.ScreenPointToRay(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
-                };
 
-                pU.MoveUnit(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
-                deltaX = 7.0f;
-                deltaZ = 7.0f;
+                    child = Instantiate(unit, new Vector3(windmillPosition.x + 4, 0, windmillPosition.z + 4), Quaternion.identity);
+                    child.transform.SetParent(parent);
+                    ResourceManagement.DecreaseFood(unitFoodCost);
+
+                    cooldownTime = 0.0f;
+
+                    PlayerUnit pU = child.gameObject.GetComponent<PlayerUnit>();
+
+
+                    while (Physics.CheckSphere(new Vector3(windmillPosition.x + deltaX, 1f, windmillPosition.z + deltaZ), 0.75f))
+                    {
+                        deltaX += Random.Range(-1f, 1f);
+                        deltaZ += Random.Range(-1f, 1f);
+                    };
+
+                    pU.MoveUnit(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
+                    deltaX = 7.0f;
+                    deltaZ = 7.0f;
+                }
             }
             
         }
+
+        // Horse
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            // check the cooldown
+            if (cooldownTime >= maxCooldownTime)
+            {
+                // check if has food enough
+                if (ResourceManagement.getFood() >= unitFoodCost)
+                {
+
+                    child = Instantiate(horse, new Vector3(windmillPosition.x + 6, 0, windmillPosition.z + 6), Quaternion.identity);
+                    child.transform.SetParent(parent);
+                    ResourceManagement.DecreaseFood(unitFoodCost);
+
+                    cooldownTime = 0.0f;
+
+                    HorseUnit hU = child.gameObject.GetComponent<HorseUnit>();
+
+
+                    while (Physics.CheckSphere(new Vector3(windmillPosition.x + deltaX, 1f, windmillPosition.z + deltaZ), 0.75f))
+                    {
+                        deltaX += Random.Range(-1f, 1f);
+                        deltaZ += Random.Range(-1f, 1f);
+                    };
+
+                    hU.MoveUnit(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
+                    deltaX = 7.0f;
+                    deltaZ = 7.0f;
+                }
+            }
+
+        }
+
         // Set the current amount of food to display on HUD
         HUD.instance.SetResourceValues(ResourceManagement.getFood());
     }
+
 }
