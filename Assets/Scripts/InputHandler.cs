@@ -7,6 +7,7 @@ using FBTW.Units.Player;
 
 using System.Linq;
 using System;
+using FBTW.HUD;
 
 namespace FBTW.InputManager
 {
@@ -20,6 +21,10 @@ namespace FBTW.InputManager
         private static List<Transform> listSelectedUnits = new List<Transform>();
 
         private bool isDragging = false;
+
+        private bool showInspectWindow = false;
+
+        private Transform lastUnitSelected;
 
         private Vector3 mousePos;
 
@@ -36,6 +41,11 @@ namespace FBTW.InputManager
                 MultiSelect.DrawScreenRect(rect, new Color(1f, 1f, 1f, 0.25f));
                 MultiSelect.DrawScreenRectBorder(rect, 3, Color.gray);
             }
+            if (showInspectWindow)
+            {
+                HUD.HUD.instance.DrawInspectWindow();
+            }
+                
         }
 
         public void HandleUnitMovement()
@@ -78,6 +88,7 @@ namespace FBTW.InputManager
                         if (isWithinSelectionBounds(unit))
                         {
                             SelectUnit(unit, true);
+                            lastUnitSelected = unit;
                         }
                     }
                 }
@@ -117,6 +128,16 @@ namespace FBTW.InputManager
             {
                 DamageSelectedUnits(1);
             }
+            // Show portrait of last selected unit
+            if (Input.GetKeyDown(KeyCode.I) && !IsUnitListEmpty())
+            {
+                showInspectWindow = !showInspectWindow;
+            }
+            else if (Input.GetKeyDown(KeyCode.I) && IsUnitListEmpty())
+            {
+                showInspectWindow = false;
+            }
+
 
         }
 
@@ -129,6 +150,7 @@ namespace FBTW.InputManager
                 {
                     AddUnitToList(unit);
                     HighlightUnit(unit);
+                    lastUnitSelected = unit;
                 }
                 else
                 {
@@ -151,6 +173,7 @@ namespace FBTW.InputManager
                     }
                     AddUnitToList(unit);
                     HighlightUnit(unit);
+                    lastUnitSelected = unit;
                 }
                 
             }

@@ -15,6 +15,10 @@ namespace FBTW.Units.Player
         public int gasCost;
         public int bladeCost;
 
+        public static int m_agility = 100;
+
+        public static int m_evasion = 30;
+
         public int maxHealth = 5;
         private int currentHealth;
         public HealthBar healthBar;
@@ -35,7 +39,14 @@ namespace FBTW.Units.Player
         {
             navAgent.SetDestination(_destination);
         }
-
+        public static int getAgility()
+        {
+            return m_agility;
+        }
+        public static int getEvasion()
+        {
+            return m_evasion;
+        }
 
     }
     
