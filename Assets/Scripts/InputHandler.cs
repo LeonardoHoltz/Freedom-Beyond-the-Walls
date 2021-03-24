@@ -54,7 +54,11 @@ namespace FBTW.InputManager
                     // if we do, then do something with that data
                     switch (hit.transform.gameObject.tag)
                     {
-                        case "HumanUnit": // Units tag
+                        case "HumanUnit":
+                            // put unit in a list of selected units
+                            SelectUnit(hit.transform, Input.GetKey(KeyCode.LeftShift));
+                            break;
+                        case "HorseUnit":
                             // put unit in a list of selected units
                             SelectUnit(hit.transform, Input.GetKey(KeyCode.LeftShift));
                             break;
@@ -249,8 +253,17 @@ namespace FBTW.InputManager
 
             foreach (Transform unit in listSelectedUnits)
             {
-                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                pU.MoveUnit(targetPositionList[targetPositionListIndex]);
+                if (unit.gameObject.tag == "HumanUnit")
+                {
+                    PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    pU.MoveUnit(targetPositionList[targetPositionListIndex]);
+                }
+                    
+                if (unit.gameObject.tag == "HorseUnit")
+                {
+                    HorseUnit hU = unit.gameObject.GetComponent<HorseUnit>();
+                    hU.MoveUnit(targetPositionList[targetPositionListIndex]);
+                }
                 targetPositionListIndex = (targetPositionListIndex + 1) % targetPositionList.Count;
             }
         }

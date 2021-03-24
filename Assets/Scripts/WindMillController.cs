@@ -16,7 +16,7 @@ public class WindMillController : MonoBehaviour
 
     public GameObject windmillObject;
 
-    public GameObject unit;
+    public GameObject unit, horse;
 
     public Transform parent;
     public GameObject child;
@@ -53,6 +53,7 @@ public class WindMillController : MonoBehaviour
             
         }
 
+        // Connie
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             // check the cooldown
@@ -84,6 +85,40 @@ public class WindMillController : MonoBehaviour
             }
             
         }
+
+        // Horse
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            // check the cooldown
+            if (cooldownTime >= maxCooldownTime)
+            {
+                // check if has food enough
+                if (ResourceManagement.getFood() >= unitFoodCost)
+                {
+
+                    child = Instantiate(horse, new Vector3(windmillPosition.x + 6, 0, windmillPosition.z + 6), Quaternion.identity);
+                    child.transform.SetParent(parent);
+                    ResourceManagement.DecreaseFood(unitFoodCost);
+
+                    cooldownTime = 0.0f;
+
+                    HorseUnit hU = child.gameObject.GetComponent<HorseUnit>();
+
+
+                    while (Physics.CheckSphere(new Vector3(windmillPosition.x + deltaX, 1f, windmillPosition.z + deltaZ), 0.75f))
+                    {
+                        deltaX += Random.Range(-1f, 1f);
+                        deltaZ += Random.Range(-1f, 1f);
+                    };
+
+                    hU.MoveUnit(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
+                    deltaX = 7.0f;
+                    deltaZ = 7.0f;
+                }
+            }
+
+        }
+
         // Set the current amount of food to display on HUD
         HUD.instance.SetResourceValues(ResourceManagement.getFood());
     }
