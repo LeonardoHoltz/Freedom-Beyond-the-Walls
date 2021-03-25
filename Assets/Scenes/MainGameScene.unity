@@ -1436,6 +1436,7 @@ GameObject:
   - component: {fileID: 132593709}
   - component: {fileID: 132593713}
   - component: {fileID: 132593712}
+  - component: {fileID: 132593714}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -1576,6 +1577,35 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 8fa59c6e79ea3ac4394a71c15d571bf4, type: 2}
+--- !u!114 &132593714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132593707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -1372625422
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.55
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: 0fa950648e5a47b4a93d55ffc3b0c9f6, type: 2}
 --- !u!1 &135979100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,6 +2021,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 182511561}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &185886191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 185886192}
+  - component: {fileID: 185886193}
+  m_Layer: 0
+  m_Name: Enemies Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &185886192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185886191}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1307303237}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &185886193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185886191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f5a376ada1354bbb078a4444e3771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &187419686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8509,6 +8582,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 746072657}
     m_Modifications:
+    - target: {fileID: 1327918618359554157, guid: a84ea86098bf3f047ba1dc8762009881,
+        type: 3}
+      propertyPath: attackRange
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8514726291110182946, guid: a84ea86098bf3f047ba1dc8762009881,
         type: 3}
       propertyPath: m_RootOrder
@@ -9527,6 +9605,7 @@ Transform:
   - {fileID: 904968883}
   - {fileID: 590163366}
   - {fileID: 1819549726}
+  - {fileID: 185886192}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10877,31 +10956,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1268262661}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1629713783 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7390273346167671664, guid: a84ea86098bf3f047ba1dc8762009881,
-    type: 3}
-  m_PrefabInstance: {fileID: 1187628013}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1629713785
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629713783}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3344f68073d090747b0e2415ed0883ae, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1630103020
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -133,6 +133,7 @@ namespace FBTW.InputManager
             {
                 DamageSelectedUnits(1);
             }
+
             // Show portrait of last selected unit
             if (Input.GetKeyDown(KeyCode.I) && !IsUnitListEmpty())
             {

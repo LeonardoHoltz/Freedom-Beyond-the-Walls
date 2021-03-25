@@ -3097,6 +3097,36 @@ Transform:
   m_Father: {fileID: 1149120302688366369}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3857747921851252808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4413973691744174069}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4413973691744174069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3857747921851252808}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.5, y: 28.5, z: 47.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8514726291110182946}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3897424588494826151
 GameObject:
   m_ObjectHideFlags: 0
@@ -6862,6 +6892,7 @@ GameObject:
   - component: {fileID: 7690721325823097872}
   - component: {fileID: 7625503454356112496}
   - component: {fileID: 4556213464230758265}
+  - component: {fileID: 1327918618359554157}
   m_Layer: 0
   m_Name: armored_titan
   m_TagString: TitanUnit
@@ -6882,6 +6913,7 @@ Transform:
   m_Children:
   - {fileID: 6035746008690923936}
   - {fileID: 6672836290652285406}
+  - {fileID: 4413973691744174069}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6923,7 +6955,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9034698996181703320}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 40
   m_Speed: 3.5
   m_Acceleration: 8
@@ -6937,6 +6969,23 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1327918618359554157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9034698996181703320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a299006a3799964ebf6088cfdb515ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 4413973691744174069}
+  attackRange: 5
+  unitsLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &9049784550611293651
 GameObject:
   m_ObjectHideFlags: 0
