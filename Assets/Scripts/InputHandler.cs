@@ -20,6 +20,8 @@ namespace FBTW.InputManager
 
         private static List<Transform> listSelectedUnits = new List<Transform>();
 
+        private static List<int> listUnitsToDestroy = new List<int>();
+
         private bool isDragging = false;
 
         private bool showInspectWindow = false;
@@ -31,6 +33,26 @@ namespace FBTW.InputManager
         void Start()
         {
             instance = this;
+        }
+
+        private void LateUpdate()
+        {
+            int i = 0;
+            foreach(Transform unit in listSelectedUnits)
+            {
+                if(unit == null)
+                {
+                    listUnitsToDestroy.Add(i);
+                }
+                i++;
+            }
+
+            foreach (int idx in listUnitsToDestroy)
+            {
+                listSelectedUnits.RemoveAt(idx);
+            }
+
+            listUnitsToDestroy.Clear();
         }
 
         private void OnGUI()
@@ -213,7 +235,7 @@ namespace FBTW.InputManager
             listSelectedUnits.Add(unit);
         }
 
-        private void RemoveUnitFromList(Transform unit)
+        public void RemoveUnitFromList(Transform unit)
         {
             listSelectedUnits.Remove(unit);
         }

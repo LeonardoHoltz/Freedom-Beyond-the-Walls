@@ -2253,6 +2253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navAgent: {fileID: 806685355539233132}
+  unit: {fileID: 8037156444092926311}
   maxHealth: 5
   healthBar: {fileID: 1054706042738195232}
 --- !u!95 &4852170584430343674

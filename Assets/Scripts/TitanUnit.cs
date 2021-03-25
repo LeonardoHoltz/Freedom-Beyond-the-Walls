@@ -33,8 +33,17 @@ namespace FBTW.Units.Titans
             // Damage them
             foreach (Collider unit in hitUnits)
             {
-                PlayerUnit pU = unit.transform.gameObject.GetComponent<PlayerUnit>();
-                pU.TakeDamage(5);
+                if(unit.tag == "HumanUnit")
+                {
+                    PlayerUnit pU = unit.transform.gameObject.GetComponent<PlayerUnit>();
+                    pU.TakeDamage(5);
+                }
+                if (unit.tag == "HorseUnit")
+                {
+                    HorseUnit hU = unit.transform.gameObject.GetComponent<HorseUnit>();
+                    hU.TakeDamage(5);
+                }
+
             }
         }
 

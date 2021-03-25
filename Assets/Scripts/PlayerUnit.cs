@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.AI;
+using FBTW.InputManager;
 
 namespace FBTW.Units.Player
 {
@@ -11,9 +12,7 @@ namespace FBTW.Units.Player
     {
         public NavMeshAgent navAgent;
 
-        public int foodCost;
-        public int gasCost;
-        public int bladeCost;
+        public GameObject unit;
 
         public static float m_attackRange = 10.0f;
 
@@ -37,6 +36,15 @@ namespace FBTW.Units.Player
         {
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
+            if (getHealth() <= 0)
+            {
+                // remove highlight if unit is selected
+                if(unit.gameObject.GetComponent<Outline>() != null)
+                {
+                    Destroy(unit.gameObject.GetComponent<Outline>());
+                }
+                Destroy(unit, 2);
+            }
         }
         
         public void MoveUnit(Vector3 _destination)
@@ -50,6 +58,10 @@ namespace FBTW.Units.Player
         public static int getEvasion()
         {
             return m_evasion;
+        }
+        public int getHealth()
+        {
+            return currentHealth;
         }
 
         public void setAttacking(bool attacking)

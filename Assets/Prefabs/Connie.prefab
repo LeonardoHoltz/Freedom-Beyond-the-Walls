@@ -2078,9 +2078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navAgent: {fileID: 2130726335401043750}
-  foodCost: 0
-  gasCost: 0
-  bladeCost: 0
+  unit: {fileID: 1661865979487344968}
   maxHealth: 5
   healthBar: {fileID: 6118863500719502066}
 --- !u!95 &7973715143034864878
