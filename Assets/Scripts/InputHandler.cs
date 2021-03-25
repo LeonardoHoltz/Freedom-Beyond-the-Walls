@@ -118,6 +118,7 @@ namespace FBTW.InputManager
                             break;
                         case "TitanUnit":
                             // attack on titan
+                            BeginAttack(hit.transform);
                             break;
                         default:
                             // move
@@ -328,6 +329,98 @@ namespace FBTW.InputManager
                 PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
                 pU.TakeDamage(damage);
             }
+        }
+
+        private void BeginAttack(Transform target)
+        {
+            foreach (Transform unit in listSelectedUnits)
+            {
+                if (unit.gameObject.tag == "HumanUnit")
+                {
+                    // Set boolean for attacking and the target for each unit selected
+                    PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    //pU.setAttacking(true);
+                    // If enemy in range attack
+                    if (EnemyInRange(target, unit))
+                    {
+                        PerformAttack(target, unit);
+                    }
+                    else
+                    {
+                        // Move closer to enemy
+                        ApproachEnemy(target, unit);
+                    }
+                }
+            }
+        }
+
+        private bool EnemyInRange(Transform target, Transform unit)
+        {
+            Vector3 targetLocation = target.position;
+            Vector3 direction = targetLocation - unit.position;
+            // Weapon range should be defined inside player unit later
+            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            if (direction.sqrMagnitude < pU.getAttackRange() * pU.getAttackRange())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ApproachEnemy(Transform target, Transform unit)
+        {
+            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            //pU.setMovingToEnemy(true);
+            Vector3 attackPosition = FindNearestAttackPosition(target, unit);
+            pU.MoveUnit(attackPosition);
+        }
+
+        private Vector3 FindNearestAttackPosition(Transform target, Transform unit)
+        {
+            // Return closest point of enemy position
+            Vector3 targetLocation = target.position;
+            Vector3 direction = targetLocation - unit.position;
+            float targetDistance = direction.magnitude;
+            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            float distanceToTravel = targetDistance - (0.9f * pU.getAttackRange());
+            return Vector3.Lerp(transform.position, targetLocation, distanceToTravel / targetDistance);
+        }
+        
+        private void PerformAttack(Transform target, Transform unit)
+        {
+            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            // If enemy got out of range approach
+            if (!EnemyInRange(target, unit))
+            {
+                ApproachEnemy(target, unit);
+            }
+            // If not looking at enemy rotate
+            else if (!FacingEnemy(target, unit))
+            {
+                // Rotate to face enemy
+                //RotateToEnemy();
+            }
+            // Attack
+            else
+            {
+                // Implement attack here
+                //Attack();
+            }
+        }
+        private bool FacingEnemy(Transform target, Transform unit)
+        {
+            // Check if facing the enemy
+            Vector3 targetLocation = target.position;
+            Vector3 direction = targetLocation - unit.position;
+            if (direction.normalized == unit.forward.normalized)
+            {
+                return true;
+            }   
+            else
+            {
+                return false;
+            }
+
         }
 
     }
