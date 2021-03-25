@@ -11,8 +11,6 @@ namespace FBTW.Units.Player
     {
         public NavMeshAgent navAgent;
 
-        public int horseCost;
-
         public int maxHealth = 5;
         private int currentHealth;
         public HealthBar healthBar;

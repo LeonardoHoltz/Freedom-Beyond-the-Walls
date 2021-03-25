@@ -9,6 +9,7 @@ namespace FBTW.Resources
         private static int m_Food;
         private static int m_Gas;
         private static int m_Blades;
+        private static int m_Horse;
 
         // Getters
         public static int getFood()
@@ -26,6 +27,11 @@ namespace FBTW.Resources
             return m_Blades;
         }
 
+        public static int getHorse()
+        {
+            return m_Horse;
+        }
+
         // Setters
         public static void setFood(int food)
         {
@@ -40,6 +46,10 @@ namespace FBTW.Resources
         public static void setBlades(int blades)
         {
             m_Blades = blades;
+        }
+        public static void setHorse(int horse)
+        {
+            m_Horse = horse;
         }
 
         // Increasing Methods
@@ -58,6 +68,11 @@ namespace FBTW.Resources
             m_Blades += blades;
         }
 
+        public static void IncreaseHorse(int horse)
+        {
+            m_Horse += horse;
+        }
+
         // Decreasing Methods
         public static void DecreaseFood(int food)
         {
@@ -73,7 +88,10 @@ namespace FBTW.Resources
         {
             m_Blades -= blades;
         }
-
+        public static void DecreaseHorse(int horse)
+        {
+            m_Horse -= horse;
+        }
 
     }
 
