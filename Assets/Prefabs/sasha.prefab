@@ -1723,6 +1723,7 @@ GameObject:
   - component: {fileID: -6283364992522151121}
   - component: {fileID: 8246751790125137433}
   - component: {fileID: 2656317716153687904}
+  - component: {fileID: 3852005128727820491}
   m_Layer: 0
   m_Name: sasha
   m_TagString: HumanUnit
@@ -1833,6 +1834,25 @@ MonoBehaviour:
   bladeCost: 0
   maxHealth: 5
   healthBar: {fileID: 5898140033923919656}
+--- !u!95 &3852005128727820491
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012904590000988632}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3344f68073d090747b0e2415ed0883ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1015542179476586217
 GameObject:
   m_ObjectHideFlags: 0
