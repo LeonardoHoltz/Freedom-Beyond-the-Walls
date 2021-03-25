@@ -267,7 +267,7 @@ namespace FBTW.InputManager
                 if (i == ringPosition.Sum() + 1)
                 {
                     ringPosition.Add((int)Math.Floor(2 * 3.14f * ringPosition.Count));
-                    ringDistance.Add(ringDistance[ringDistance.Count - 1] + 1.5f);
+                    ringDistance.Add(ringDistance[ringDistance.Count - 1] + 1.6f);
                 }
             }
             
