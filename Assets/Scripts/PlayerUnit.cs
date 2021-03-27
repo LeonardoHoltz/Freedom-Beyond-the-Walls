@@ -14,7 +14,7 @@ namespace FBTW.Units.Player
 
         public GameObject unit;
 
-        public static float m_attackRange = 5.0f;
+        public static float m_attackRange = 10.0f;
 
         public static int m_agility = 100;
 
@@ -24,7 +24,7 @@ namespace FBTW.Units.Player
         private int currentHealth;
         public HealthBar healthBar;
 
-        private bool m_isAttacking, m_isMovingToEnemy;
+        private bool m_isMovingToAttack, m_isMovingToEnemy, m_isAttacking;
 
         void Start()
         {
@@ -62,6 +62,16 @@ namespace FBTW.Units.Player
         public int getHealth()
         {
             return currentHealth;
+        }
+
+        public void setMovingToAttack(bool movingToAttack)
+        {
+            m_isMovingToAttack = movingToAttack;
+        }
+
+        public bool getMovingToAttack()
+        {
+            return m_isMovingToAttack;
         }
 
         public void setAttacking(bool attacking)

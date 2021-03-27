@@ -36,7 +36,7 @@ namespace FBTW.Player
                         if (unit.gameObject.tag == "HumanUnit")
                         {
                             PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                            if (pU.getAttacking())
+                            if (pU.getMovingToAttack())
                             {
                                 InputHandler.instance.BeginAttack(unit);
                             }

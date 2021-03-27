@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 using FBTW.Player;
 using FBTW.Units.Player;
@@ -346,7 +348,7 @@ namespace FBTW.InputManager
             }
         }
 
-        private void SetSelectedAttacking(bool attacking)
+        private void SetSelectedAttacking(bool movingToAttack)
         {
             foreach (Transform unit in listSelectedUnits)
             {
@@ -354,7 +356,7 @@ namespace FBTW.InputManager
                 {
                     // Set boolean for attacking and the target for each unit selected
                     PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                    pU.setAttacking(attacking);
+                    pU.setMovingToAttack(movingToAttack);
                 }
             }
         }
@@ -369,19 +371,24 @@ namespace FBTW.InputManager
                 // If enemy in range attack
                 if (EnemyInRange(m_target, unit))
                 {
-                    Debug.Log("Unit is in range: ");
-                    PerformAttack(m_target, unit);
+                    if(!pU.getAttacking())
+                    {
+                        PerformAttack(m_target, unit);
+                    }
+
                 }
                 else
                 {
                     // Move closer to enemy
+                    pU.setAttacking(false);
+                    pU.navAgent.speed = 3.5f;
                     ApproachEnemy(m_target, unit);
                 }
             }
             else 
             {
                 PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                pU.setAttacking(false);
+                pU.setMovingToAttack(false);
             }
 
         }
@@ -402,7 +409,6 @@ namespace FBTW.InputManager
         private void ApproachEnemy(Transform target, Transform unit)
         {
             PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            //pU.setMovingToEnemy(true);
             Vector3 attackPosition = FindNearestAttackPosition(target, unit);
             pU.MoveUnit(attackPosition);
         }
@@ -420,30 +426,43 @@ namespace FBTW.InputManager
         
         private void PerformAttack(Transform target, Transform unit)
         {
-            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            // If enemy got out of range approach
-            if (!EnemyInRange(target, unit))
+            if(target != null)
             {
-                ApproachEnemy(target, unit);
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                // If enemy got out of range approach
+                if (!EnemyInRange(target, unit))
+                {
+                    ApproachEnemy(target, unit);
+                }
+                // If not looking at enemy rotate
+                else if (!FacingEnemy(target, unit))
+                {
+                    // Rotate to face enemy
+                    RotateToEnemy(target, unit);
+
+                }
+                // Attack
+                else
+                {
+                    // Implement attack here
+                    Attack(target, unit);
+                }
             }
-            // If not looking at enemy rotate
-            else if (!FacingEnemy(target, unit))
-            {
-                // Rotate to face enemy
-                RotateToEnemy(target, unit);
-            }
-            // Attack
             else
             {
-                // Implement attack here
-                //Attack();
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                pU.setMovingToAttack(false);
             }
+
         }
         private bool FacingEnemy(Transform target, Transform unit)
         {
             // Check if facing the enemy
             Vector3 targetLocation = target.position;
             Vector3 direction = targetLocation - unit.position;
+            // Set y to 0 we want direction in x and z axis
+            direction[1] = 0;
+            // Check if unit is facing enemy
             if (direction.normalized == unit.forward.normalized)
             {
                 return true;
@@ -457,9 +476,22 @@ namespace FBTW.InputManager
         private void RotateToEnemy(Transform target, Transform unit)
         {
             // Find a good turn speed i don't know
-            int turnSpeed = 10;
+            int turnSpeed = 5;
             Quaternion aimRotation = Quaternion.LookRotation(target.position - unit.position);
             unit.rotation = Quaternion.RotateTowards(unit.rotation, aimRotation, turnSpeed);
+        }
+        private void Attack(Transform target, Transform unit)
+        {
+            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            pU.setAttacking(true);
+            pU.navAgent.speed = 10.0f;
+
+            // Return closest point of enemy position
+            Vector3 targetLocation = target.position;
+            Vector3 direction = targetLocation - unit.position;
+
+            Vector3 dashPosition = targetLocation + 2*direction;
+            pU.MoveUnit(dashPosition);
         }
 
     }

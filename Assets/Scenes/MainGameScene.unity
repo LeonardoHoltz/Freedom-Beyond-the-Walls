@@ -8587,6 +8587,11 @@ PrefabInstance:
       propertyPath: attackRange
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4556213464230758265, guid: a84ea86098bf3f047ba1dc8762009881,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8514726291110182946, guid: a84ea86098bf3f047ba1dc8762009881,
         type: 3}
       propertyPath: m_RootOrder

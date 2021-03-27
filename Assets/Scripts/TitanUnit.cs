@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 using FBTW.Units.Player;
 
@@ -11,6 +12,8 @@ namespace FBTW.Units.Titans
         public Transform attackPoint;
         public float attackRange = 3.0f;
         public LayerMask unitsLayers;
+
+        public NavMeshAgent navAgent;
 
 
         // Update is called once per frame
