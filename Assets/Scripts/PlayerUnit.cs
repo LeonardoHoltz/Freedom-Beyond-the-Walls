@@ -14,7 +14,7 @@ namespace FBTW.Units.Player
 
         public GameObject unit;
 
-        public static float m_attackRange = 10.0f;
+        public static float m_attackRange = 5.0f;
 
         public static int m_agility = 100;
 

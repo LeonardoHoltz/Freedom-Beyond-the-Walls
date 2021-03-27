@@ -22,7 +22,6 @@ namespace FBTW.Units.Titans
                 TitanAttack();
             }
         }
-
         public void TitanAttack()
         {
             // Play animation

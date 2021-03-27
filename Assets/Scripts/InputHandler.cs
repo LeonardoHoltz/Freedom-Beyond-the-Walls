@@ -26,7 +26,7 @@ namespace FBTW.InputManager
 
         private bool showInspectWindow = false;
 
-        private Transform lastUnitSelected;
+        private Transform lastUnitSelected, m_target = null;
 
         private Vector3 mousePos;
 
@@ -140,10 +140,12 @@ namespace FBTW.InputManager
                             break;
                         case "TitanUnit":
                             // attack on titan
-                            BeginAttack(hit.transform);
+                            m_target = hit.transform;
+                            SetSelectedAttacking(true);
                             break;
                         default:
                             // move
+                            SetSelectedAttacking(false);
                             MoveSelectedUnits(hit.point);
                             break;
                     }
@@ -161,7 +163,7 @@ namespace FBTW.InputManager
             {
                 showInspectWindow = !showInspectWindow;
             }
-            else if (Input.GetKeyDown(KeyCode.I) && IsUnitListEmpty())
+            else if (Input.GetKeyDown(KeyCode.I) || IsUnitListEmpty())
             {
                 showInspectWindow = false;
             }
@@ -354,7 +356,7 @@ namespace FBTW.InputManager
             }
         }
 
-        private void BeginAttack(Transform target)
+        private void SetSelectedAttacking(bool attacking)
         {
             foreach (Transform unit in listSelectedUnits)
             {
@@ -362,19 +364,36 @@ namespace FBTW.InputManager
                 {
                     // Set boolean for attacking and the target for each unit selected
                     PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                    //pU.setAttacking(true);
-                    // If enemy in range attack
-                    if (EnemyInRange(target, unit))
-                    {
-                        PerformAttack(target, unit);
-                    }
-                    else
-                    {
-                        // Move closer to enemy
-                        ApproachEnemy(target, unit);
-                    }
+                    pU.setAttacking(attacking);
                 }
             }
+        }
+
+        public void BeginAttack(Transform unit)
+        {
+            if(m_target != null)
+            {
+                // Set boolean for attacking and the target for each unit selected
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                //pU.setAttacking(true);
+                // If enemy in range attack
+                if (EnemyInRange(m_target, unit))
+                {
+                    Debug.Log("Unit is in range: ");
+                    PerformAttack(m_target, unit);
+                }
+                else
+                {
+                    // Move closer to enemy
+                    ApproachEnemy(m_target, unit);
+                }
+            }
+            else 
+            {
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                pU.setAttacking(false);
+            }
+
         }
 
         private bool EnemyInRange(Transform target, Transform unit)
@@ -406,7 +425,7 @@ namespace FBTW.InputManager
             float targetDistance = direction.magnitude;
             PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
             float distanceToTravel = targetDistance - (0.9f * pU.getAttackRange());
-            return Vector3.Lerp(transform.position, targetLocation, distanceToTravel / targetDistance);
+            return Vector3.Lerp(unit.position, targetLocation, distanceToTravel / targetDistance);
         }
         
         private void PerformAttack(Transform target, Transform unit)
@@ -421,7 +440,7 @@ namespace FBTW.InputManager
             else if (!FacingEnemy(target, unit))
             {
                 // Rotate to face enemy
-                //RotateToEnemy();
+                RotateToEnemy(target, unit);
             }
             // Attack
             else
@@ -444,6 +463,13 @@ namespace FBTW.InputManager
                 return false;
             }
 
+        }
+        private void RotateToEnemy(Transform target, Transform unit)
+        {
+            // Find a good turn speed i don't know
+            int turnSpeed = 10;
+            Quaternion aimRotation = Quaternion.LookRotation(target.position - unit.position);
+            unit.rotation = Quaternion.RotateTowards(unit.rotation, aimRotation, turnSpeed);
         }
 
     }

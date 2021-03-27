@@ -4,6 +4,7 @@ using UnityEngine;
 
 using FBTW.InputManager;
 using FBTW.HUD;
+using FBTW.Units.Player;
 
 namespace FBTW.Player
 {
@@ -30,6 +31,19 @@ namespace FBTW.Player
                 if(child.name == "Survey Corps")
                 {
                     m_playerUnitCount = child.childCount;
+                    foreach(Transform unit in child)
+                    {
+                        if (unit.gameObject.tag == "HumanUnit")
+                        {
+                            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                            if (pU.getAttacking())
+                            {
+                                InputHandler.instance.BeginAttack(unit);
+                            }
+                        }
+                    }
+                    
+                    
                 }
             }
             HUD.HUD.instance.SetUnitCount(m_playerUnitCount);
