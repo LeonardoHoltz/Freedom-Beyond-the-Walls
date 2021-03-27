@@ -30,6 +30,8 @@ namespace FBTW.InputManager
 
         private Vector3 mousePos;
 
+        private IEnumerator cr;
+
         void Start()
         {
             instance = this;
@@ -128,7 +130,8 @@ namespace FBTW.InputManager
                     switch (hit.transform.gameObject.tag)
                     {
                         case "HumanUnit":
-                            // move to the unit
+                            // move next to the unit?
+                            // probably use the same code when spawning an unit
                             break;
                         case "TitanUnit":
                             // attack on titan
@@ -250,7 +253,7 @@ namespace FBTW.InputManager
             m_Outline = unit.gameObject.AddComponent<Outline>();
             m_Outline.OutlineMode = Outline.Mode.OutlineAll;
             m_Outline.OutlineColor = Color.blue;
-            m_Outline.OutlineWidth = 1f;
+            m_Outline.OutlineWidth = 0.75f;
         }
 
         private void RemoveHighlight(Transform unit)
@@ -426,7 +429,7 @@ namespace FBTW.InputManager
         
         private void PerformAttack(Transform target, Transform unit)
         {
-            if(target != null)
+            if (target != null)
             {
                 PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
                 // If enemy got out of range approach
@@ -483,6 +486,12 @@ namespace FBTW.InputManager
         private void Attack(Transform target, Transform unit)
         {
             PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            LineController lC = unit.gameObject.GetComponent<LineController>();
+
+            // Implement hook in the target here
+            lC.points[1] = target;
+            lC.lr.enabled = true;
+
             pU.setAttacking(true);
             pU.navAgent.speed = 10.0f;
 
@@ -492,6 +501,15 @@ namespace FBTW.InputManager
 
             Vector3 dashPosition = targetLocation + 2*direction;
             pU.MoveUnit(dashPosition);
+
+            cr = desableLineRenderer(lC);
+            StartCoroutine(cr);
+        }
+
+        private IEnumerator desableLineRenderer(LineController lC)
+        {
+            yield return new WaitForSeconds(1.2f);
+            lC.lr.enabled = false;
         }
 
     }
