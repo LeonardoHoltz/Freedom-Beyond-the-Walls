@@ -15,6 +15,17 @@ namespace FBTW.Units.Titans
 
         public NavMeshAgent navAgent;
 
+        public GameObject titan;
+
+        public int maxHealth = 5;
+        private int currentHealth;
+        public HealthBar healthBar;
+
+        void Start()
+        {
+            currentHealth = maxHealth;
+            healthBar.SetMaxHealth(maxHealth);
+        }
 
         // Update is called once per frame
         void Update()
@@ -25,6 +36,22 @@ namespace FBTW.Units.Titans
                 TitanAttack();
             }
         }
+
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
+            healthBar.SetHealth(currentHealth);
+            if (getHealth() <= 0)
+            {
+                Destroy(titan, 2);
+            }
+        }
+
+        public int getHealth()
+        {
+            return currentHealth;
+        }
+
         public void TitanAttack()
         {
             // Play animation

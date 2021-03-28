@@ -501,9 +501,10 @@ namespace FBTW.InputManager
 
             Vector3 dashPosition = targetLocation + 2*direction;
             pU.MoveUnit(dashPosition);
-
             cr = desableLineRenderer(lC);
             StartCoroutine(cr);
+            
+
         }
 
         private IEnumerator desableLineRenderer(LineController lC)
