@@ -8612,6 +8612,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 746072657}
     m_Modifications:
+    - target: {fileID: 653969711317655047, guid: a84ea86098bf3f047ba1dc8762009881,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 653969711317655047, guid: a84ea86098bf3f047ba1dc8762009881,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1327918618359554157, guid: a84ea86098bf3f047ba1dc8762009881,
         type: 3}
       propertyPath: attackRange
@@ -12369,8 +12379,10 @@ MonoBehaviour:
   m_inspectSkin: {fileID: 11400000, guid: d5fec4e300df1414c851613bb5c494d7, type: 2}
   m_foodTexture: {fileID: 2800000, guid: d7ade2a5dc96dc14498c6d4fb84790e1, type: 3}
   m_unitTexture: {fileID: 2800000, guid: fe05151d20f9f4e4c8e461a282ca3a78, type: 3}
-  m_unitPortrait: {fileID: 2800000, guid: cca5bdf1a3f86944eaa342cc2bc64a00, type: 3}
   m_agilityIcon: {fileID: 2800000, guid: 742087214e73b4a45a368259ce344584, type: 3}
+  m_conniePortrait: {fileID: 2800000, guid: cca5bdf1a3f86944eaa342cc2bc64a00, type: 3}
+  m_sashaPortrait: {fileID: 2800000, guid: adc3887b0edcb3f418b01ca3dbee6ab5, type: 3}
+  m_titanPortrait: {fileID: 2800000, guid: 7958d3c369a09c6499d4ce1a7783b475, type: 3}
 --- !u!1001 &1836014492
 PrefabInstance:
   m_ObjectHideFlags: 0

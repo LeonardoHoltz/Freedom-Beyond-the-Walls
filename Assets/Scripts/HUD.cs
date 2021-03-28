@@ -5,17 +5,19 @@ using UnityEngine;
 
 using FBTW.Resources;
 using FBTW.Units.Player;
+using FBTW.Units.Titans;
 
 
 namespace FBTW.HUD
 {
     public class HUD : MonoBehaviour
     {
+        public enum UnitType { CONNIE, SASHA, TITAN };
         public static HUD instance;
         private const int ICON_WIDTH = 32, ICON_HEIGHT = 32, TEXT_WIDTH = 128, TEXT_HEIGHT = 32, RESOURCE_BAR_HEIGHT = 40, INSPECT_WINDOW_WIDTH = 200, INSPECT_WINDOW_HEIGHT = 80;
         public GUISkin m_resourceSkin, m_inspectSkin;
         private int m_foodCount, m_gasCount, m_bladesCount, m_unitCount;
-        public Texture2D m_foodTexture, m_unitTexture, m_unitPortrait, m_agilityIcon;
+        public Texture2D m_foodTexture, m_unitTexture, m_agilityIcon, m_conniePortrait, m_sashaPortrait, m_titanPortrait;
         void Start()
         {
             instance = this;
@@ -30,25 +32,49 @@ namespace FBTW.HUD
         {
             DrawResourceBar();
         }
-        public void DrawInspectWindow(Transform unit)
+        public void DrawInspectWindow(Transform unit, UnitType unitType)
         {
             GUI.skin = m_inspectSkin;
             GUI.BeginGroup(new Rect(0, Screen.height/2, Screen.width/2, Screen.height/2));
             GUI.Box(new Rect(0, Screen.height/2-INSPECT_WINDOW_HEIGHT, INSPECT_WINDOW_WIDTH, INSPECT_WINDOW_HEIGHT), "");
             int topPos = Screen.height / 2 - INSPECT_WINDOW_HEIGHT + 4, iconLeft = 4, textLeft = 40*2;
-            DrawUnitImage(iconLeft, textLeft, topPos, unit);
+            DrawUnitImage(iconLeft, textLeft, topPos, unit, unitType);
 
 
             GUI.EndGroup();
         }
-        private void DrawUnitImage(int iconLeft, int textLeft, int topPos, Transform unit)
+        private void DrawUnitImage(int iconLeft, int textLeft, int topPos, Transform unit, UnitType unitType)
         {
-            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            string text = pU.getHealth().ToString() + "/" + pU.maxHealth.ToString();
-            GUI.DrawTexture(new Rect(iconLeft*2, topPos+4, ICON_WIDTH*2, ICON_HEIGHT*2), m_unitPortrait);
-            GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
-            text = pU.getAgility().ToString() + " Agility ";
-            GUI.Label(new Rect(textLeft, topPos+20, TEXT_WIDTH, TEXT_HEIGHT), text);
+            PlayerUnit pU;
+            TitanUnit tU;
+            string text;
+            switch (unitType)
+            {
+                case UnitType.CONNIE:
+                    pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    text = pU.getHealth().ToString() + "/" + pU.maxHealth.ToString();
+                    GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_conniePortrait);
+                    GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    text = pU.getAgility().ToString() + " Agility ";
+                    GUI.Label(new Rect(textLeft, topPos + 20, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    break;
+                case UnitType.SASHA:
+                    pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    text = pU.getHealth().ToString() + "/" + pU.maxHealth.ToString();
+                    GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_sashaPortrait);
+                    GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    text = pU.getAgility().ToString() + " Agility ";
+                    GUI.Label(new Rect(textLeft, topPos + 20, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    break;
+                case UnitType.TITAN:
+                    tU = unit.gameObject.GetComponent<TitanUnit>();
+                    text = tU.getHealth().ToString() + "/" + tU.maxHealth.ToString();
+                    GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_titanPortrait);
+                    GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    text = 999 + " Damage ";
+                    GUI.Label(new Rect(textLeft, topPos + 20, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    break;
+            }
 
         }
         private void DrawResourceBar()

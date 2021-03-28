@@ -64,7 +64,20 @@ namespace FBTW.InputManager
             }
             if (showInspectWindow && lastUnitSelected != null)
             {
-                HUD.HUD.instance.DrawInspectWindow(lastUnitSelected);
+                if(lastUnitSelected.gameObject.name.Contains("Connie"))
+                {
+                    HUD.HUD.instance.DrawInspectWindow(lastUnitSelected, HUD.HUD.UnitType.CONNIE);
+                }
+                else if (lastUnitSelected.gameObject.name.Contains("sasha"))
+                {
+                    HUD.HUD.instance.DrawInspectWindow(lastUnitSelected, HUD.HUD.UnitType.SASHA);
+                }
+                else if(lastUnitSelected.gameObject.name.Contains("armored_titan"))
+                {
+                    HUD.HUD.instance.DrawInspectWindow(lastUnitSelected, HUD.HUD.UnitType.TITAN);
+                }
+
+
             }
                 
         }
@@ -93,11 +106,16 @@ namespace FBTW.InputManager
                             // put unit in a list of selected units
                             SelectUnit(hit.transform, Input.GetKey(KeyCode.LeftShift));
                             break;
+                        case "TitanUnit":
+                            lastUnitSelected = hit.transform;
+                            break;
                         default:
                             isDragging = true;
 
                             // if is not an unit then we can deselect all
                             DeselectUnits();
+                            lastUnitSelected = null;
+                            showInspectWindow = false;
                             break;
                     }
                 }
@@ -158,14 +176,11 @@ namespace FBTW.InputManager
             }
 
             // Show portrait of last selected unit
-            if (Input.GetKeyDown(KeyCode.I) && !IsUnitListEmpty() && lastUnitSelected.gameObject.tag == "HumanUnit")
+            if (Input.GetKeyDown(KeyCode.I) && (lastUnitSelected.gameObject.tag == "HumanUnit" || lastUnitSelected.gameObject.tag == "TitanUnit"))
             {
                 showInspectWindow = !showInspectWindow;
             }
-            else if (Input.GetKeyDown(KeyCode.I) || IsUnitListEmpty())
-            {
-                showInspectWindow = false;
-            }
+
 
 
         }
