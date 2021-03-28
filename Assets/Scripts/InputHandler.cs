@@ -64,7 +64,7 @@ namespace FBTW.InputManager
             }
             if (showInspectWindow && lastUnitSelected != null)
             {
-                if(lastUnitSelected.gameObject.name.Contains("Connie"))
+                if(lastUnitSelected.gameObject.name.Contains("connie"))
                 {
                     HUD.HUD.instance.DrawInspectWindow(lastUnitSelected, HUD.HUD.UnitType.CONNIE);
                 }
@@ -176,9 +176,12 @@ namespace FBTW.InputManager
             }
 
             // Show portrait of last selected unit
-            if (Input.GetKeyDown(KeyCode.I) && (lastUnitSelected.gameObject.tag == "HumanUnit" || lastUnitSelected.gameObject.tag == "TitanUnit"))
+            if (Input.GetKeyDown(KeyCode.I) && lastUnitSelected != null)
             {
-                showInspectWindow = !showInspectWindow;
+                if (lastUnitSelected.gameObject.tag == "HumanUnit" || lastUnitSelected.gameObject.tag == "TitanUnit")
+                {
+                    showInspectWindow = !showInspectWindow;
+                }
             }
 
 
@@ -409,6 +412,7 @@ namespace FBTW.InputManager
             {
                 PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
                 pU.setMovingToAttack(false);
+                pU.navAgent.speed = 3.5f;
             }
 
         }
