@@ -16,9 +16,8 @@ namespace FBTW.Units.Player
 
         public static float m_attackRange = 10.0f;
 
-        public static int m_agility = 100;
+        public int m_agility = 100;
 
-        public static int m_evasion = 30;
 
         public int maxHealth = 5;
         private int currentHealth;
@@ -51,13 +50,9 @@ namespace FBTW.Units.Player
         {
             navAgent.SetDestination(_destination);
         }
-        public static int getAgility()
+        public int getAgility()
         {
             return m_agility;
-        }
-        public static int getEvasion()
-        {
-            return m_evasion;
         }
         public int getHealth()
         {

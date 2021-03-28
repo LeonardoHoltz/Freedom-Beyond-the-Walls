@@ -29,25 +29,25 @@ namespace FBTW.HUD
         private void OnGUI()
         {
             DrawResourceBar();
-            //DrawInspectWindow();
         }
-        public void DrawInspectWindow()
+        public void DrawInspectWindow(Transform unit)
         {
             GUI.skin = m_inspectSkin;
             GUI.BeginGroup(new Rect(0, Screen.height/2, Screen.width/2, Screen.height/2));
             GUI.Box(new Rect(0, Screen.height/2-INSPECT_WINDOW_HEIGHT, INSPECT_WINDOW_WIDTH, INSPECT_WINDOW_HEIGHT), "");
             int topPos = Screen.height / 2 - INSPECT_WINDOW_HEIGHT + 4, iconLeft = 4, textLeft = 40*2;
-            DrawUnitImage(iconLeft, textLeft, topPos);
+            DrawUnitImage(iconLeft, textLeft, topPos, unit);
 
 
             GUI.EndGroup();
         }
-        private void DrawUnitImage(int iconLeft, int textLeft, int topPos)
+        private void DrawUnitImage(int iconLeft, int textLeft, int topPos, Transform unit)
         {
-            string text = PlayerUnit.getAgility().ToString() + " Agilidade " /*+ "/" + resourceLimits[type].ToString()*/;
+            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            string text = pU.getHealth().ToString() + "/" + pU.maxHealth.ToString();
             GUI.DrawTexture(new Rect(iconLeft*2, topPos+4, ICON_WIDTH*2, ICON_HEIGHT*2), m_unitPortrait);
             GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
-            text = PlayerUnit.getEvasion().ToString() + "% Evasão";
+            text = pU.getAgility().ToString() + " Agility ";
             GUI.Label(new Rect(textLeft, topPos+20, TEXT_WIDTH, TEXT_HEIGHT), text);
 
         }

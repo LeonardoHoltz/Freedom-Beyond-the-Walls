@@ -59,7 +59,7 @@ namespace FBTW.InputManager
             }
             if (showInspectWindow)
             {
-                HUD.HUD.instance.DrawInspectWindow();
+                HUD.HUD.instance.DrawInspectWindow(lastUnitSelected);
             }
                 
         }
@@ -154,7 +154,7 @@ namespace FBTW.InputManager
             }
 
             // Show portrait of last selected unit
-            if (Input.GetKeyDown(KeyCode.I) && !IsUnitListEmpty())
+            if (Input.GetKeyDown(KeyCode.I) && !IsUnitListEmpty() && lastUnitSelected.gameObject.tag == "HumanUnit")
             {
                 showInspectWindow = !showInspectWindow;
             }
