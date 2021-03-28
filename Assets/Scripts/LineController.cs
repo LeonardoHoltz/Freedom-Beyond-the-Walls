@@ -14,9 +14,12 @@ public class LineController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < points.Length; i++)
+        if(lr.enabled)
         {
-            lr.SetPosition(i, points[i].position);
+            for (int i = 0; i < points.Length; i++)
+            {
+                lr.SetPosition(i, points[i].position);
+            }
         }
     }
 

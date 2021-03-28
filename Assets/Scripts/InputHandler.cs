@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 using FBTW.Player;
 using FBTW.Units.Player;
+using FBTW.Units.Titans;
 
 using System.Linq;
 using System;
@@ -30,7 +31,7 @@ namespace FBTW.InputManager
 
         private Vector3 mousePos;
 
-        private IEnumerator cr;
+        private IEnumerator cr1, cr2;
 
         void Start()
         {
@@ -454,7 +455,10 @@ namespace FBTW.InputManager
             else
             {
                 PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                LineController lC = unit.gameObject.GetComponent<LineController>();
                 pU.setMovingToAttack(false);
+                lC.points[1] = unit.Find("HookPoint");
+                lC.lr.enabled = false;
             }
 
         }
@@ -501,16 +505,25 @@ namespace FBTW.InputManager
 
             Vector3 dashPosition = targetLocation + 2*direction;
             pU.MoveUnit(dashPosition);
-            cr = desableLineRenderer(lC);
-            StartCoroutine(cr);
-            
-
+            cr1 = DisableLineRenderer(lC);
+            cr2 = ApplyDamage(target, unit);
+            StartCoroutine(cr1);
+            StartCoroutine(cr2);
         }
 
-        private IEnumerator desableLineRenderer(LineController lC)
+        private IEnumerator DisableLineRenderer(LineController lC)
         {
             yield return new WaitForSeconds(1.2f);
             lC.lr.enabled = false;
+        }
+
+        private IEnumerator ApplyDamage(Transform target, Transform unit)
+        {
+            yield return new WaitForSeconds(1.0f);
+            TitanUnit tU = target.gameObject.GetComponent<TitanUnit>();
+            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+            // for now the damage is just the agility, we gonna fix this to an equation, i think
+            tU.TakeDamage(pU.m_agility);
         }
 
     }
