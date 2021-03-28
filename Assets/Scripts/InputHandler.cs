@@ -48,6 +48,10 @@ namespace FBTW.InputManager
                     i--;
                 }
             }
+            if(!IsUnitListEmpty())
+            {
+                lastUnitSelected = listSelectedUnits[listSelectedUnits.Count - 1];
+            }
         }
 
         private void OnGUI()
@@ -58,7 +62,7 @@ namespace FBTW.InputManager
                 MultiSelect.DrawScreenRect(rect, new Color(1f, 1f, 1f, 0.25f));
                 MultiSelect.DrawScreenRectBorder(rect, 3, Color.gray);
             }
-            if (showInspectWindow)
+            if (showInspectWindow && lastUnitSelected != null)
             {
                 HUD.HUD.instance.DrawInspectWindow(lastUnitSelected);
             }
@@ -109,7 +113,6 @@ namespace FBTW.InputManager
                         if (isWithinSelectionBounds(unit))
                         {
                             SelectUnit(unit, true);
-                            lastUnitSelected = unit;
                         }
                     }
                 }
@@ -176,7 +179,6 @@ namespace FBTW.InputManager
                 {
                     AddUnitToList(unit);
                     HighlightUnit(unit);
-                    lastUnitSelected = unit;
                 }
                 else
                 {
@@ -199,7 +201,6 @@ namespace FBTW.InputManager
                     }
                     AddUnitToList(unit);
                     HighlightUnit(unit);
-                    lastUnitSelected = unit;
                 }
                 
             }
