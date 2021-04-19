@@ -46,9 +46,9 @@ namespace FBTW.Units.Player
             }
         }
         
-        public void MoveUnit(Vector3 _destination)
+        public void MoveUnit(Vector3 destination)
         {
-            navAgent.SetDestination(_destination);
+            navAgent.SetDestination(destination);
         }
         public int getAgility()
         {

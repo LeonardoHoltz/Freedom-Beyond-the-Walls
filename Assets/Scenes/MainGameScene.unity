@@ -2064,6 +2064,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1f5a376ada1354bbb078a4444e3771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titanUnits: {fileID: 746072657}
+  unitsLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1001 &187419686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8621,6 +8625,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1327918618359554157, guid: a84ea86098bf3f047ba1dc8762009881,
+        type: 3}
+      propertyPath: maxHealth
+      value: 7000
       objectReference: {fileID: 0}
     - target: {fileID: 1327918618359554157, guid: a84ea86098bf3f047ba1dc8762009881,
         type: 3}

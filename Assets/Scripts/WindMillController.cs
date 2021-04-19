@@ -53,7 +53,7 @@ public class WindMillController : MonoBehaviour
             
         }
 
-        // Connie
+        // Connie and Sasha
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             // check the cooldown

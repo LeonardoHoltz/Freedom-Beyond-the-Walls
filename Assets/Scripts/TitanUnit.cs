@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 using FBTW.Units.Player;
+using FBTW.Enemies;
 
 namespace FBTW.Units.Titans
 {
@@ -20,6 +21,9 @@ namespace FBTW.Units.Titans
         public int maxHealth = 5;
         private int currentHealth;
         public HealthBar healthBar;
+
+        private bool searchingForHumans = true;
+        private float titanVisionRange = 20f;
 
         void Start()
         {
@@ -50,6 +54,26 @@ namespace FBTW.Units.Titans
         public int getHealth()
         {
             return currentHealth;
+        }
+
+        public float getVisionRange()
+        {
+            return titanVisionRange;
+        }
+
+        public bool isSearchingForHumans()
+        {
+            return searchingForHumans;
+        }
+
+        public void setSearchingForHumans(bool value)
+        {
+            searchingForHumans = value;
+        }
+
+        public void MoveTitan(Vector3 destination)
+        {
+            navAgent.SetDestination(destination);
         }
 
         public void TitanAttack()

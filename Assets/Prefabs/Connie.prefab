@@ -2043,7 +2043,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -2082,6 +2082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navAgent: {fileID: 2130726335401043750}
   unit: {fileID: 1661865979487344968}
+  m_agility: 100
   maxHealth: 5
   healthBar: {fileID: 6118863500719502066}
 --- !u!95 &7973715143034864878
