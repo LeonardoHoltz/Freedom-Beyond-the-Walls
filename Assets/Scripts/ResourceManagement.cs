@@ -10,6 +10,10 @@ namespace FBTW.Resources
         private static int m_Gas;
         private static int m_Blades;
         private static int m_Horse;
+        private static int level = 0;
+        private static int currXP = 0;
+        private static int XPToNextLevel = 100;
+
 
         // Getters
         public static int getFood()
@@ -30,6 +34,18 @@ namespace FBTW.Resources
         public static int getHorse()
         {
             return m_Horse;
+        }
+        public static int getLevel()
+        {
+            return level;
+        }
+        public static int getCurrentXP()
+        {
+            return currXP;
+        }
+        public static int getXPToNextLevel()
+        {
+            return XPToNextLevel;
         }
 
         // Setters
@@ -93,6 +109,16 @@ namespace FBTW.Resources
             m_Horse -= horse;
         }
 
+        public static void IncreaseXP(int amount)
+        {
+            currXP += amount;
+            if (currXP >= XPToNextLevel)
+            {
+                level++;
+                currXP -= XPToNextLevel;
+            }
+
+        }
     }
 
 }

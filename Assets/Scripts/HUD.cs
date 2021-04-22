@@ -87,6 +87,9 @@ namespace FBTW.HUD
             iconLeft += TEXT_WIDTH;
             textLeft += TEXT_WIDTH;
             DrawUnitCount(iconLeft, textLeft, topPos);
+            iconLeft += TEXT_WIDTH;
+            textLeft += TEXT_WIDTH;
+            DrawXP(iconLeft, textLeft, topPos);
             GUI.EndGroup();
         }
         public void SetResourceValues(int food/*, int gas, int blades*/)
@@ -103,13 +106,18 @@ namespace FBTW.HUD
         {
             string text = m_foodCount.ToString() /*+ "/" + resourceLimits[type].ToString()*/;
             GUI.DrawTexture(new Rect(iconLeft, topPos, ICON_WIDTH, ICON_HEIGHT), m_foodTexture);
-            GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
+            GUI.Label(new Rect(textLeft, topPos*2, TEXT_WIDTH, TEXT_HEIGHT), text);
         }
         private void DrawUnitCount(int iconLeft, int textLeft, int topPos)
         {
             string text = m_unitCount.ToString() /*+ "/" + resourceLimits[type].ToString()*/;
             GUI.DrawTexture(new Rect(iconLeft, topPos, ICON_WIDTH, ICON_HEIGHT), m_unitTexture);
-            GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
+            GUI.Label(new Rect(textLeft, topPos*2, TEXT_WIDTH, TEXT_HEIGHT), text);
+        }
+        private void DrawXP(int iconLeft, int textLeft, int topPos)
+        {
+            string text = "Level " + ResourceManagement.getLevel().ToString() + "   " + ResourceManagement.getCurrentXP().ToString() + "/" + ResourceManagement.getXPToNextLevel().ToString();
+            GUI.Label(new Rect(textLeft, topPos*2, TEXT_WIDTH, TEXT_HEIGHT), text);
         }
     }
 

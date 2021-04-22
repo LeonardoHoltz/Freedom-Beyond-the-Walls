@@ -11,6 +11,8 @@ using FBTW.Units.Titans;
 using System.Linq;
 using System;
 using FBTW.HUD;
+using FBTW.Resources;
+
 
 namespace FBTW.InputManager
 {
@@ -168,6 +170,12 @@ namespace FBTW.InputManager
                     }
                 }
             }
+            // Tester for XP functionality
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                ResourceManagement.IncreaseXP(50);
+            }
+
 
             // temporary take damage to test health bar
             if (Input.GetKeyDown(KeyCode.Space))

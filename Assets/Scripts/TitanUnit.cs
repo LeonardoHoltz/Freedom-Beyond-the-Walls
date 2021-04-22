@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 using FBTW.Units.Player;
 using FBTW.Enemies;
+using FBTW.Resources;
 
 namespace FBTW.Units.Titans
 {
@@ -48,6 +49,7 @@ namespace FBTW.Units.Titans
             if (getHealth() <= 0)
             {
                 Destroy(titan, 2);
+                ResourceManagement.IncreaseXP(50);
             }
         }
 
