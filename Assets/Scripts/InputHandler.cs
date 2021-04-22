@@ -503,7 +503,7 @@ namespace FBTW.InputManager
         private void RotateToEnemy(Transform target, Transform unit)
         {
             // Find a good turn speed i don't know
-            int turnSpeed = 5;
+            int turnSpeed = 10;
             Quaternion aimRotation = Quaternion.LookRotation(target.position - unit.position);
             unit.rotation = Quaternion.RotateTowards(unit.rotation, aimRotation, turnSpeed);
         }
