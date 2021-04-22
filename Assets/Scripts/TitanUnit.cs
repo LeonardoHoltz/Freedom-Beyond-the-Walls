@@ -26,6 +26,10 @@ namespace FBTW.Units.Titans
         private bool searchingForHumans = true;
         private float titanVisionRange = 20f;
 
+        private float attackDelay = 4.0f;
+        public float attackTime = 0.0f;
+        public bool attackInProgression = false;
+
         void Start()
         {
             currentHealth = maxHealth;
@@ -78,28 +82,49 @@ namespace FBTW.Units.Titans
             navAgent.SetDestination(destination);
         }
 
+        public bool IsEnemyInAttackRange()
+        {
+            Collider[] hitUnits = Physics.OverlapSphere(attackPoint.position, attackRange, unitsLayers);
+            if(hitUnits.Length > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void TitanAttack()
         {
             // Play animation
+            navAgent.isStopped = true;
+            attackInProgression = true;
 
-            // Detect Enemies in attack range
-            Collider[] hitUnits = Physics.OverlapSphere(attackPoint.position, attackRange, unitsLayers);
+            attackTime += Time.deltaTime;
 
-            // Damage them
-            foreach (Collider unit in hitUnits)
+            if(attackTime >= attackDelay)
             {
-                if(unit.tag == "HumanUnit")
-                {
-                    PlayerUnit pU = unit.transform.gameObject.GetComponent<PlayerUnit>();
-                    pU.TakeDamage(5);
-                }
-                if (unit.tag == "HorseUnit")
-                {
-                    HorseUnit hU = unit.transform.gameObject.GetComponent<HorseUnit>();
-                    hU.TakeDamage(5);
-                }
+                // Detect Enemies in attack range
+                Collider[] hitUnits = Physics.OverlapSphere(attackPoint.position, attackRange, unitsLayers);
 
+                // Damage them
+                foreach (Collider unit in hitUnits)
+                {
+                    if (unit.tag == "HumanUnit")
+                    {
+                        PlayerUnit pU = unit.transform.gameObject.GetComponent<PlayerUnit>();
+                        pU.TakeDamage(5);
+                    }
+                    if (unit.tag == "HorseUnit")
+                    {
+                        HorseUnit hU = unit.transform.gameObject.GetComponent<HorseUnit>();
+                        hU.TakeDamage(5);
+                    }
+
+                }
+                attackTime = 0f;
+                attackInProgression = false;
             }
+            navAgent.isStopped = false;
+            
         }
 
         private void OnDrawGizmosSelected()
@@ -108,5 +133,7 @@ namespace FBTW.Units.Titans
                 return;
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
+
+
     }
 }
