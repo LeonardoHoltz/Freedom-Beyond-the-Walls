@@ -9293,6 +9293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1246762888}
+  - component: {fileID: 1246762889}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -9317,6 +9318,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1246762889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246762887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0007b5cc5706b3149bb9e1a34b615bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treesPrefabs:
+  - {fileID: 2222111361404534124, guid: 88f2fd29f58b9734683512546acec310, type: 3}
+  - {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
+  - {fileID: 6941765000743290380, guid: c60edd51c065ceb46b345849a03bc106, type: 3}
+  rocksPrefabs:
+  - {fileID: 7405846476849542632, guid: c6308cb7062fac34e8e50600086b12a1, type: 3}
+  - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
+  - {fileID: 4680757731160225450, guid: 0fde05fa0f3321942a21896ff4f0856f, type: 3}
+  - {fileID: 8783306491908617939, guid: f02116c209ecd9e488fc4d2cd8996133, type: 3}
+  parent: {fileID: 1246762888}
+  treeChild: {fileID: 0}
+  rockChild: {fileID: 0}
 --- !u!1001 &1246938004
 PrefabInstance:
   m_ObjectHideFlags: 0
