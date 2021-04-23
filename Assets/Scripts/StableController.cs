@@ -52,30 +52,34 @@ public class StableController : MonoBehaviour
         // Horse
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            // check the cooldown
-            if (cooldownTime >= maxCooldownTime)
+            // If horse units are unlocked
+            if (PlayerManager.instance.CanSpawnHorseUnit())
             {
-                // check if has food enough
-                if (ResourceManagement.getHorse() >= horseCost)
+                // check the cooldown
+                if (cooldownTime >= maxCooldownTime)
                 {
-
-                    child = Instantiate(horse, new Vector3(stablePosition.x + 1, 0, stablePosition.z + 1), Quaternion.identity);
-                    child.transform.SetParent(parent);
-                    ResourceManagement.DecreaseFood(horseCost);
-
-                    cooldownTime = 0.0f;
-
-                    HorseUnit hU = child.gameObject.GetComponent<HorseUnit>();
-
-                    while (Physics.CheckSphere(new Vector3(stablePosition.x + deltaX, 1.5f, stablePosition.z + deltaZ), 1.4f))
+                    // check if has food enough
+                    if (ResourceManagement.getHorse() >= horseCost)
                     {
-                        deltaX += Random.Range(-1f, 1f);
-                        deltaZ += Random.Range(-1f, 1f);
-                    };
 
-                    hU.MoveUnit(new Vector3(stablePosition.x + deltaX, 0, stablePosition.z + deltaZ));
-                    deltaX = 7.0f;
-                    deltaZ = 7.0f;
+                        child = Instantiate(horse, new Vector3(stablePosition.x + 1, 0, stablePosition.z + 1), Quaternion.identity);
+                        child.transform.SetParent(parent);
+                        ResourceManagement.DecreaseFood(horseCost);
+
+                        cooldownTime = 0.0f;
+
+                        HorseUnit hU = child.gameObject.GetComponent<HorseUnit>();
+
+                        while (Physics.CheckSphere(new Vector3(stablePosition.x + deltaX, 1.5f, stablePosition.z + deltaZ), 1.4f))
+                        {
+                            deltaX += Random.Range(-1f, 1f);
+                            deltaZ += Random.Range(-1f, 1f);
+                        };
+
+                        hU.MoveUnit(new Vector3(stablePosition.x + deltaX, 0, stablePosition.z + deltaZ));
+                        deltaX = 7.0f;
+                        deltaZ = 7.0f;
+                    }
                 }
             }
 

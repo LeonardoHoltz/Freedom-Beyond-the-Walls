@@ -53,7 +53,7 @@ namespace FBTW.Units.Titans
             if (getHealth() <= 0)
             {
                 Destroy(titan, 2);
-                ResourceManagement.IncreaseXP(50);
+                ResourceManagement.IncreaseXP(500);
             }
         }
 

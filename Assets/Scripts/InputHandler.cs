@@ -27,7 +27,9 @@ namespace FBTW.InputManager
 
         private bool isDragging = false;
 
-        private bool showInspectWindow = false;
+        private bool showInspectWindow = false, showSkillTree = false;
+
+        public GameObject skillTreeWindow;
 
         private Transform lastUnitSelected, m_target = null;
 
@@ -81,6 +83,7 @@ namespace FBTW.InputManager
 
 
             }
+
                 
         }
 
@@ -173,7 +176,7 @@ namespace FBTW.InputManager
             // Tester for XP functionality
             if (Input.GetKeyDown(KeyCode.J))
             {
-                ResourceManagement.IncreaseXP(50);
+                ResourceManagement.IncreaseXP(230);
             }
 
 
@@ -191,7 +194,12 @@ namespace FBTW.InputManager
                     showInspectWindow = !showInspectWindow;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                showSkillTree = !showSkillTree;
+                skillTreeWindow.SetActive(showSkillTree);
 
+            }
 
 
         }

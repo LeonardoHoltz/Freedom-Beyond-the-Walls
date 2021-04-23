@@ -18,7 +18,6 @@ namespace FBTW.Units.Player
 
         public int m_agility = 100;
 
-
         public int maxHealth = 5;
         private int currentHealth;
         public HealthBar healthBar;
@@ -57,6 +56,21 @@ namespace FBTW.Units.Player
         public int getHealth()
         {
             return currentHealth;
+        }
+        public void setCurrentHealth(int hp)
+        {
+            currentHealth = hp;
+            healthBar.SetHealth(currentHealth);
+        }
+        public void setMaximumHealth(int hp)
+        {
+            maxHealth = hp;
+            healthBar.SetMaxHealth(maxHealth);
+        }
+
+        public void setAgility(int agility)
+        {
+            m_agility = agility;
         }
 
         public void setMovingToAttack(bool movingToAttack)

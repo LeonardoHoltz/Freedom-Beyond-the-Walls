@@ -18,6 +18,7 @@ namespace FBTW.HUD
         public GUISkin m_resourceSkin, m_inspectSkin;
         private int m_foodCount, m_gasCount, m_bladesCount, m_unitCount;
         public Texture2D m_foodTexture, m_unitTexture, m_agilityIcon, m_conniePortrait, m_sashaPortrait, m_titanPortrait;
+
         void Start()
         {
             instance = this;
@@ -116,7 +117,7 @@ namespace FBTW.HUD
         }
         private void DrawXP(int iconLeft, int textLeft, int topPos)
         {
-            string text = "Level " + ResourceManagement.getLevel().ToString() + "   " + ResourceManagement.getCurrentXP().ToString() + "/" + ResourceManagement.getXPToNextLevel().ToString();
+            string text = "Skill Points " + ResourceManagement.getLevel().ToString() + "   " + ResourceManagement.getCurrentXP().ToString() + "/" + ResourceManagement.getXPToNextLevel().ToString();
             GUI.Label(new Rect(textLeft, topPos*2, TEXT_WIDTH, TEXT_HEIGHT), text);
         }
     }

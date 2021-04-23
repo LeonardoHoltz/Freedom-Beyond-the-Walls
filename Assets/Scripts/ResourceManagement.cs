@@ -89,6 +89,17 @@ namespace FBTW.Resources
             m_Horse += horse;
         }
 
+        public static void IncreaseXP(int amount)
+        {
+            currXP += amount;
+            while (currXP >= XPToNextLevel)
+            {
+                level++;
+                currXP -= XPToNextLevel;
+            }
+
+        }
+
         // Decreasing Methods
         public static void DecreaseFood(int food)
         {
@@ -109,16 +120,13 @@ namespace FBTW.Resources
             m_Horse -= horse;
         }
 
-        public static void IncreaseXP(int amount)
+        public static void DecreaseLevel(int amount)
         {
-            currXP += amount;
-            if (currXP >= XPToNextLevel)
-            {
-                level++;
-                currXP -= XPToNextLevel;
-            }
+            level -= amount;
 
         }
+
+
     }
 
 }
