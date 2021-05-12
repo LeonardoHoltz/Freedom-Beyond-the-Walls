@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.AI;
 using FBTW.InputManager;
+using FBTW.Player;
 
 namespace FBTW.Units.Player
 {
@@ -16,18 +17,22 @@ namespace FBTW.Units.Player
 
         public static float m_attackRange = 10.0f;
 
-        public int m_agility = 100;
+        public int currentAgility;
 
-        public int maxHealth = 5;
         private int currentHealth;
+
+        public int currentMaxHealth;
+
         public HealthBar healthBar;
 
         private bool m_isMovingToAttack, m_isMovingToEnemy, m_isAttacking;
 
         void Start()
         {
-            currentHealth = maxHealth;
-            healthBar.SetMaxHealth(maxHealth);
+            currentAgility = PlayerManager.instance.m_agility;
+            currentHealth = PlayerManager.instance.maxHealth;
+            currentMaxHealth = PlayerManager.instance.maxHealth;
+            healthBar.SetMaxHealth(PlayerManager.instance.maxHealth);
         }
 
         public void TakeDamage(int damage)
@@ -51,7 +56,7 @@ namespace FBTW.Units.Player
         }
         public int getAgility()
         {
-            return m_agility;
+            return currentAgility;
         }
         public int getHealth()
         {
@@ -64,13 +69,13 @@ namespace FBTW.Units.Player
         }
         public void setMaximumHealth(int hp)
         {
-            maxHealth = hp;
-            healthBar.SetMaxHealth(maxHealth);
+            currentMaxHealth = hp;
+            healthBar.SetMaxHealth(currentMaxHealth);
         }
 
         public void setAgility(int agility)
         {
-            m_agility = agility;
+            currentAgility = agility;
         }
 
         public void setMovingToAttack(bool movingToAttack)

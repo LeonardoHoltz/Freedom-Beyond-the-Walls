@@ -16,6 +16,9 @@ namespace FBTW.Player
 
         public Transform playerUnits;
 
+        public int m_agility = 100;
+
+        public int maxHealth = 5;
         private int m_playerUnitCount;
 
         private Skills.PlayerSkills playerSkills;
@@ -31,45 +34,31 @@ namespace FBTW.Player
         }
         private void PlayerSkills_OnSkillUnlocked(object sender, PlayerSkills.OnSkillUnlockedEventArgs e)
         {          
-            foreach (Transform child in playerUnits)
+
+            switch (e.skillType)
             {
-                if (child.name == "Survey Corps")
-                {
-                    foreach (Transform unit in child)
+                case PlayerSkills.SkillType.Agility_1:
                     {
-                        if (unit.gameObject.tag == "HumanUnit")
-                        {
-                            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                            switch (e.skillType)
-                            {
-                                case PlayerSkills.SkillType.Agility_1:
-                                    {
-                                        pU.setAgility(125);
-                                        break;
-                                    }
-                                case PlayerSkills.SkillType.Agility_2:
-                                    {                                       
-                                        pU.setAgility(150);
-                                        break;
-                                    }
-                                case PlayerSkills.SkillType.MaxHealth_1:
-                                    {                                     
-                                        pU.setMaximumHealth(10);
-                                        pU.setCurrentHealth(10);
-                                        break;
-                                    }
-                                case PlayerSkills.SkillType.MaxHealth_2:
-                                    {
-                                        Debug.Log("hello");
-                                        pU.setMaximumHealth(15);
-                                        pU.setCurrentHealth(15);
-                                        break;
-                                    }
-                            }                            
-                        }
+                        m_agility = 125;
+                        break;
                     }
-                }
-            }            
+                case PlayerSkills.SkillType.Agility_2:
+                    {
+                        m_agility = 150;
+                        break;
+                    }
+                case PlayerSkills.SkillType.MaxHealth_1:
+                    {
+                        maxHealth = 10;
+                        break;
+                    }
+                case PlayerSkills.SkillType.MaxHealth_2:
+                    {
+                        maxHealth = 15;
+                        break;
+                    }
+            }                            
+            
         }
         // Update is called once per frame
         void Update()
@@ -89,6 +78,15 @@ namespace FBTW.Player
                             {
                                 InputHandler.instance.BeginAttack(unit);
                             }
+                            if (pU.currentMaxHealth != maxHealth)
+                            {
+                                pU.setCurrentHealth(maxHealth);
+                                pU.setMaximumHealth(maxHealth);
+                            }
+                            if(pU.getAgility() != m_agility)
+                            {
+                                pU.setAgility(m_agility);
+                            }
                         }
                     }
                     
@@ -98,6 +96,7 @@ namespace FBTW.Player
             HUD.HUD.instance.SetUnitCount(m_playerUnitCount);
             UI_SkillTree.instance.SetPlayerSkills(GetPlayerSkills());
         }
+
 
         public Skills.PlayerSkills GetPlayerSkills()
         {

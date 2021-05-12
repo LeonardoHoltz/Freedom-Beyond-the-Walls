@@ -6,6 +6,7 @@ using UnityEngine;
 using FBTW.Resources;
 using FBTW.Units.Player;
 using FBTW.Units.Titans;
+using FBTW.Player;
 
 
 namespace FBTW.HUD
@@ -53,7 +54,7 @@ namespace FBTW.HUD
             {
                 case UnitType.CONNIE:
                     pU = unit.gameObject.GetComponent<PlayerUnit>();
-                    text = pU.getHealth().ToString() + "/" + pU.maxHealth.ToString();
+                    text = pU.getHealth().ToString() + "/" + PlayerManager.instance.maxHealth.ToString();
                     GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_conniePortrait);
                     GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
                     text = pU.getAgility().ToString() + " Agility ";
@@ -61,7 +62,7 @@ namespace FBTW.HUD
                     break;
                 case UnitType.SASHA:
                     pU = unit.gameObject.GetComponent<PlayerUnit>();
-                    text = pU.getHealth().ToString() + "/" + pU.maxHealth.ToString();
+                    text = pU.getHealth().ToString() + "/" + PlayerManager.instance.maxHealth.ToString();
                     GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_sashaPortrait);
                     GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
                     text = pU.getAgility().ToString() + " Agility ";

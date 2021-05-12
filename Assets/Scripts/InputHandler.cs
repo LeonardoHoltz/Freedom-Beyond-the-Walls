@@ -559,7 +559,7 @@ namespace FBTW.InputManager
             TitanUnit tU = target.gameObject.GetComponent<TitanUnit>();
             PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
             // for now the damage is just the agility, we gonna fix this to an equation, i think
-            tU.TakeDamage(pU.m_agility);
+            tU.TakeDamage(pU.currentAgility);
         }
 
     }
