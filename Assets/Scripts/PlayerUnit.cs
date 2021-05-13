@@ -35,6 +35,29 @@ namespace FBTW.Units.Player
             healthBar.SetMaxHealth(PlayerManager.instance.maxHealth);
         }
 
+        private void Update()
+        {
+            //Debug.Log(unit.GetComponent<Rigidbody>().IsSleeping());
+            if(m_isAttacking)
+            {
+                unit.GetComponent<Animator>().SetBool("isAttacking", true);
+            }
+            else
+            {
+                unit.GetComponent<Animator>().SetBool("isAttacking", false);
+
+                if (unit.GetComponent<Rigidbody>().IsSleeping())
+                {
+                    unit.GetComponent<Animator>().SetBool("isRunning", false);
+                }
+                else
+                {
+                    unit.GetComponent<Animator>().SetBool("isRunning", true);
+                }
+            }
+            
+        }
+
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
