@@ -19,26 +19,10 @@ namespace FBTW.Units.Player
         private int currentHealth;
         public HealthBar healthBar;
 
-        Vector3 last_position = Vector3.zero, position;
-
         void Start()
         {
             currentHealth = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
-        }
-
-        private void Update()
-        {
-            position = unit.GetComponent<Transform>().position;
-            if (unit.GetComponent<Transform>().position == last_position)
-            {
-                unit.GetComponent<Animator>().speed = 0;
-            }
-            else
-            {
-                unit.GetComponent<Animator>().speed = 1;
-            }
-            last_position = position;
         }
 
         public int getHealth()

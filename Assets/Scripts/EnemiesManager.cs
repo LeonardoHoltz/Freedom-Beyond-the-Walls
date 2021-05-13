@@ -38,8 +38,6 @@ namespace FBTW.Enemies
             }
             else
             {
-                tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
-                tU.AgentNotMoving(false);
                 // Detect Humans nearby
                 Collider[] unitsFound = Physics.OverlapSphere(tU.GetComponent<Transform>().position, tU.getVisionRange(), unitsLayers);
                 if (unitsFound.Length != 0)
@@ -66,14 +64,11 @@ namespace FBTW.Enemies
                     // Human is near and in the attack range
                     if(tU.IsEnemyInAttackRange())
                     {
-                        tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", true);
                         tU.TitanAttack();
                     }
                     // Human is near but not in the attack range -> chase
                     else
                     {
-                        tU.AgentNotMoving(false);
-                        tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
                         tU.attackTime = 0f;
                         Transform nearestHuman = CheckNearestHuman(unitsFound, tU);
                         ApproachHuman(nearestHuman, tU);

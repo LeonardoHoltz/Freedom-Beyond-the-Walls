@@ -26,7 +26,7 @@ namespace FBTW.Units.Titans
         private bool searchingForHumans = true;
         private float titanVisionRange = 20f;
 
-        public float attackDelay = 4.0f;
+        private float attackDelay = 4.0f;
         public float attackTime = 0.0f;
         public bool attackInProgression = false;
 
@@ -95,9 +95,7 @@ namespace FBTW.Units.Titans
         public void TitanAttack()
         {
             // Play animation
-            //titan.GetComponent<Animator>().SetBool("isAttacking", true);
-
-            AgentNotMoving(true);
+            navAgent.isStopped = true;
             attackInProgression = true;
 
             attackTime += Time.deltaTime;
@@ -124,13 +122,9 @@ namespace FBTW.Units.Titans
                 }
                 attackTime = 0f;
                 attackInProgression = false;
-                
             }
-        }
-
-        public void AgentNotMoving(bool value)
-        {
-            navAgent.isStopped = value;
+            navAgent.isStopped = false;
+            
         }
 
         private void OnDrawGizmosSelected()
