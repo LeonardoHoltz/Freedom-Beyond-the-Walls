@@ -36,6 +36,7 @@ public class MapSpawnGenerator : MonoBehaviour
             } while(Physics.CheckSphere(new Vector3(xSpawn, 1f, zSpawn), 0.75f));
 
             treeChild = Instantiate(treesPrefabs[rndTree.Next(treesPrefabs.Count)], new Vector3(xSpawn, 0, zSpawn), Quaternion.identity);
+            treeChild.layer = 8;
 
             treeChild.transform.SetParent(parent);
         }

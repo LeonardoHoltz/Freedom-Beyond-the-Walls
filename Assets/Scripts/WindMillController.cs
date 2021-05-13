@@ -71,7 +71,6 @@ public class WindMillController : MonoBehaviour
 
                     PlayerUnit pU = child.gameObject.GetComponent<PlayerUnit>();
 
-
                     while (Physics.CheckSphere(new Vector3(windmillPosition.x + deltaX, 1f, windmillPosition.z + deltaZ), 0.75f))
                     {
                         deltaX += Random.Range(-1f, 1f);
