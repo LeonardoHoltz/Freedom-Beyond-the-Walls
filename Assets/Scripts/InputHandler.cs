@@ -111,6 +111,10 @@ namespace FBTW.InputManager
                             // put unit in a list of selected units
                             SelectUnit(hit.transform, Input.GetKey(KeyCode.LeftShift));
                             break;
+                        case "CavalryUnit":
+                            // put unit in a list of selected units
+                            SelectUnit(hit.transform, Input.GetKey(KeyCode.LeftShift));
+                            break;
                         case "TitanUnit":
                             lastUnitSelected = hit.transform;
                             break;
@@ -160,10 +164,17 @@ namespace FBTW.InputManager
                             // move next to the unit?
                             // probably use the same code when spawning an unit
                             break;
+                        case "CavalryUnit":
+                            // same thing as HumanUnit
+                            break;
                         case "TitanUnit":
                             // attack on titan
                             m_target = hit.transform;
                             SetSelectedAttacking(true);
+                            break;
+                        case "Horse Unit":
+                            // Human Units need to aproach the horse and then ride the horse
+                            
                             break;
                         default:
                             // move

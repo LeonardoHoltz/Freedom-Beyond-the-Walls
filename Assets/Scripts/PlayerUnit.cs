@@ -11,6 +11,8 @@ namespace FBTW.Units.Player
     
     public class PlayerUnit : MonoBehaviour
     {
+        //private float[] animationsOffsets = { 0.0f, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 1.0f};
+
         public NavMeshAgent navAgent;
 
         public GameObject unit;
@@ -27,24 +29,30 @@ namespace FBTW.Units.Player
 
         private bool m_isMovingToAttack, m_isMovingToEnemy, m_isAttacking;
 
+        private float animationOffset;
+
         void Start()
         {
             currentAgility = PlayerManager.instance.m_agility;
             currentHealth = PlayerManager.instance.maxHealth;
             currentMaxHealth = PlayerManager.instance.maxHealth;
             healthBar.SetMaxHealth(PlayerManager.instance.maxHealth);
+            animationOffset = Random.Range(0.0f, 1.0f);
+            unit.GetComponent<Animator>().SetFloat("offset", animationOffset);
         }
 
         private void Update()
         {
-            //Debug.Log(unit.GetComponent<Rigidbody>().IsSleeping());
-            if(m_isAttacking)
+            // Animation:
+
+            if (m_isAttacking)
             {
                 unit.GetComponent<Animator>().SetBool("isAttacking", true);
             }
             else
             {
                 unit.GetComponent<Animator>().SetBool("isAttacking", false);
+                
 
                 if (unit.GetComponent<Rigidbody>().IsSleeping())
                 {
