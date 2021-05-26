@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
@@ -53,13 +54,16 @@ public class CameraController : MonoBehaviour
         {
             HandleMovementInput();
         }
-        
-        if(Input.GetKey(KeyCode.Escape))
+
+
+
+        if (Input.GetKey(KeyCode.Escape))
         {
             //transform.position = followTransform.position; // When the camera stops following, it should stay in the same position and not in the last position, before the following
             followTransform = null;
         }
     }
+
 
     void HandleMovementInput()
     {

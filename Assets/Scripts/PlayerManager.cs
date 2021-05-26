@@ -94,7 +94,11 @@ namespace FBTW.Player
                 }
             }
             HUD.HUD.instance.SetUnitCount(m_playerUnitCount);
-            UI_SkillTree.instance.SetPlayerSkills(GetPlayerSkills());
+            if(UI_SkillTree.instance)
+            {
+                UI_SkillTree.instance.SetPlayerSkills(GetPlayerSkills());
+            }
+
         }
 
 

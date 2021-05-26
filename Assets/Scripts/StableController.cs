@@ -6,6 +6,8 @@ using FBTW.Resources;
 using FBTW.Player;
 using FBTW.HUD;
 using FBTW.Units.Player;
+using FBTW.Pause;
+
 
 public class StableController : MonoBehaviour
 {
@@ -39,54 +41,57 @@ public class StableController : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
-        cooldownTime += Time.deltaTime;
-
-        // food
-        if (timer >= waitTime)
+        if (!PauseMenu.GameIsPaused)
         {
-            timer = 0.0f;
-            ResourceManagement.IncreaseHorse(1);
-        }
+            timer += Time.deltaTime;
+            cooldownTime += Time.deltaTime;
 
-        // Horse
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            // If horse units are unlocked
-            if (PlayerManager.instance.CanSpawnHorseUnit())
+            // food
+            if (timer >= waitTime)
             {
-                // check the cooldown
-                if (cooldownTime >= maxCooldownTime)
-                {
-                    // check if has food enough
-                    if (ResourceManagement.getHorse() >= horseCost)
-                    {
-
-                        child = Instantiate(horse, new Vector3(stablePosition.x + 1, 0, stablePosition.z + 1), Quaternion.identity);
-                        child.transform.SetParent(parent);
-                        ResourceManagement.DecreaseFood(horseCost);
-
-                        cooldownTime = 0.0f;
-
-                        HorseUnit hU = child.gameObject.GetComponent<HorseUnit>();
-
-                        while (Physics.CheckSphere(new Vector3(stablePosition.x + deltaX, 1.5f, stablePosition.z + deltaZ), 1.4f))
-                        {
-                            deltaX += Random.Range(-1f, 1f);
-                            deltaZ += Random.Range(-1f, 1f);
-                        };
-
-                        hU.MoveUnit(new Vector3(stablePosition.x + deltaX, 0, stablePosition.z + deltaZ));
-                        deltaX = 7.0f;
-                        deltaZ = 7.0f;
-                    }
-                }
+                timer = 0.0f;
+                ResourceManagement.IncreaseHorse(1);
             }
 
-        }
+            // Horse
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                // If horse units are unlocked
+                if (PlayerManager.instance.CanSpawnHorseUnit())
+                {
+                    // check the cooldown
+                    if (cooldownTime >= maxCooldownTime)
+                    {
+                        // check if has food enough
+                        if (ResourceManagement.getHorse() >= horseCost)
+                        {
 
-        // Set the current amount of food to display on HUD
-        //HUD.instance.SetResourceValues(ResourceManagement.getHorse());
+                            child = Instantiate(horse, new Vector3(stablePosition.x + 1, 0, stablePosition.z + 1), Quaternion.identity);
+                            child.transform.SetParent(parent);
+                            ResourceManagement.DecreaseFood(horseCost);
+
+                            cooldownTime = 0.0f;
+
+                            HorseUnit hU = child.gameObject.GetComponent<HorseUnit>();
+
+                            while (Physics.CheckSphere(new Vector3(stablePosition.x + deltaX, 1.5f, stablePosition.z + deltaZ), 1.4f))
+                            {
+                                deltaX += Random.Range(-1f, 1f);
+                                deltaZ += Random.Range(-1f, 1f);
+                            };
+
+                            hU.MoveUnit(new Vector3(stablePosition.x + deltaX, 0, stablePosition.z + deltaZ));
+                            deltaX = 7.0f;
+                            deltaZ = 7.0f;
+                        }
+                    }
+                }
+
+            }
+
+            // Set the current amount of food to display on HUD
+            //HUD.instance.SetResourceValues(ResourceManagement.getHorse());
+        }
     }
 
 }

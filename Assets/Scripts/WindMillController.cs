@@ -6,6 +6,7 @@ using FBTW.Resources;
 using FBTW.Player;
 using FBTW.HUD;
 using FBTW.Units.Player;
+using FBTW.Pause;
 
 public class WindMillController : MonoBehaviour
 {
@@ -42,52 +43,55 @@ public class WindMillController : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
-        cooldownTime += Time.deltaTime;
-
-        // food
-        if (timer >= waitTime)
+        if (!PauseMenu.GameIsPaused)
         {
-            timer = 0.0f;
-            ResourceManagement.IncreaseFood(1);
-            
-        }
+            timer += Time.deltaTime;
+            cooldownTime += Time.deltaTime;
 
-        // Connie and Sasha
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            // check the cooldown
-            if (cooldownTime >= maxCooldownTime)
+            // food
+            if (timer >= waitTime)
             {
-                // check if has food enough
-                if (ResourceManagement.getFood() >= unitFoodCost)
-                {
-                    System.Random rnd = new System.Random();
-                    child = Instantiate(units[rnd.Next(units.Count)], new Vector3(windmillPosition.x + 4, 0, windmillPosition.z + 4), Quaternion.identity);
-                    child.transform.SetParent(parent);
-                    ResourceManagement.DecreaseFood(unitFoodCost);
+                timer = 0.0f;
+                ResourceManagement.IncreaseFood(1);
 
-                    cooldownTime = 0.0f;
-
-                    PlayerUnit pU = child.gameObject.GetComponent<PlayerUnit>();
-
-
-                    while (Physics.CheckSphere(new Vector3(windmillPosition.x + deltaX, 1f, windmillPosition.z + deltaZ), 0.75f))
-                    {
-                        deltaX += Random.Range(-1f, 1f);
-                        deltaZ += Random.Range(-1f, 1f);
-                    };
-
-                    pU.MoveUnit(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
-                    deltaX = 7.0f;
-                    deltaZ = 7.0f;
-                }
             }
-            
-        }
 
-        // Set the current amount of food to display on HUD
-        HUD.instance.SetResourceValues(ResourceManagement.getFood());
+            // Connie and Sasha
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                // check the cooldown
+                if (cooldownTime >= maxCooldownTime)
+                {
+                    // check if has food enough
+                    if (ResourceManagement.getFood() >= unitFoodCost)
+                    {
+                        System.Random rnd = new System.Random();
+                        child = Instantiate(units[rnd.Next(units.Count)], new Vector3(windmillPosition.x + 4, 0, windmillPosition.z + 4), Quaternion.identity);
+                        child.transform.SetParent(parent);
+                        ResourceManagement.DecreaseFood(unitFoodCost);
+
+                        cooldownTime = 0.0f;
+
+                        PlayerUnit pU = child.gameObject.GetComponent<PlayerUnit>();
+
+
+                        while (Physics.CheckSphere(new Vector3(windmillPosition.x + deltaX, 1f, windmillPosition.z + deltaZ), 0.75f))
+                        {
+                            deltaX += Random.Range(-1f, 1f);
+                            deltaZ += Random.Range(-1f, 1f);
+                        };
+
+                        pU.MoveUnit(new Vector3(windmillPosition.x + deltaX, 0, windmillPosition.z + deltaZ));
+                        deltaX = 7.0f;
+                        deltaZ = 7.0f;
+                    }
+                }
+
+            }
+
+            // Set the current amount of food to display on HUD
+            HUD.instance.SetResourceValues(ResourceManagement.getFood());
+        }
     }
 
 }
