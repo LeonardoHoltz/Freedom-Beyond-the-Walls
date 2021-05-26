@@ -51,9 +51,10 @@ GameObject:
   - component: {fileID: 4118636157910066201}
   - component: {fileID: -6446358127564464170}
   - component: {fileID: 8155910156619052335}
+  - component: {fileID: 8148673854394141309}
   m_Layer: 9
   m_Name: Cavalry_Connie
-  m_TagString: Untagged
+  m_TagString: CavalryUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,6 +146,23 @@ MonoBehaviour:
   initialIconRotation: 0
   clampIconInBorder: 1
   clampDistance: 100
+--- !u!114 &8148673854394141309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002023515401735797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c180a7d2b129fd24f9fdd830d23cae93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navAgent: {fileID: 4118636157910066201}
+  unit: {fileID: 8002023515401735797}
+  currentAgility: 0
+  currentMaxHealth: 0
+  healthBar: {fileID: 8451426583084088834}
 --- !u!1001 &481301397652704714
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -361,6 +379,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7309284177000904904}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8451426583084088834 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1163816052992280266, guid: 1060456c2a8f4c44188a722d289c0883,
+    type: 3}
+  m_PrefabInstance: {fileID: 7309284177000904904}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec074f4758f91ba498ce925e853d040e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7369700440254789069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -415,13 +445,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7b443ef44cd15554899c5a98bbdfb0b4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b443ef44cd15554899c5a98bbdfb0b4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b443ef44cd15554899c5a98bbdfb0b4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b443ef44cd15554899c5a98bbdfb0b4,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7b443ef44cd15554899c5a98bbdfb0b4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.364
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7b443ef44cd15554899c5a98bbdfb0b4,
         type: 3}
