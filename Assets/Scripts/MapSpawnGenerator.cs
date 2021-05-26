@@ -53,7 +53,6 @@ public class MapSpawnGenerator : MonoBehaviour
 
             rockChild.transform.SetParent(parent);
         }
-
     }
 
     // Update is called once per frame
