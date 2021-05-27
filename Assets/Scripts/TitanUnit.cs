@@ -120,6 +120,11 @@ namespace FBTW.Units.Titans
                         HorseUnit hU = unit.transform.gameObject.GetComponent<HorseUnit>();
                         hU.TakeDamage(5);
                     }
+                    if (unit.tag == "CavalryUnit")
+                    {
+                        CavalryUnit cU = unit.transform.gameObject.GetComponent<CavalryUnit>();
+                        cU.TakeDamage(5);
+                    }
 
                 }
                 attackTime = 0f;

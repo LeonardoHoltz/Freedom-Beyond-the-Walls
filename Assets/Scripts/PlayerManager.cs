@@ -88,6 +88,23 @@ namespace FBTW.Player
                                 pU.setAgility(m_agility);
                             }
                         }
+                        if (unit.gameObject.tag == "CavalryUnit")
+                        {
+                            CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                            if (cU.getMovingToAttack())
+                            {
+                                InputHandler.instance.BeginAttack(unit);
+                            }
+                            if (cU.currentMaxHealth != maxHealth)
+                            {
+                                cU.setCurrentHealth(maxHealth);
+                                cU.setMaximumHealth(maxHealth);
+                            }
+                            if (cU.getAgility() != m_agility)
+                            {
+                                cU.setAgility(m_agility);
+                            }
+                        }
                     }
                     
                     

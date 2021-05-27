@@ -18,8 +18,10 @@ namespace FBTW.Units.Player
         public static float m_attackRange = 10.0f;
 
         public int currentAgility;
+        public int initAgility = 150;
 
         private int currentHealth;
+        public int maxHealth = 10;
 
         public int currentMaxHealth;
 
@@ -29,10 +31,9 @@ namespace FBTW.Units.Player
 
         void Start()
         {
-            currentAgility = PlayerManager.instance.m_agility;
-            currentHealth = PlayerManager.instance.maxHealth;
-            currentMaxHealth = PlayerManager.instance.maxHealth;
-            healthBar.SetMaxHealth(PlayerManager.instance.maxHealth);
+            currentAgility = initAgility;
+            currentHealth = maxHealth;
+            healthBar.SetMaxHealth(maxHealth);
         }
 
         private void Update()

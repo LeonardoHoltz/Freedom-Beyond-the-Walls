@@ -174,7 +174,8 @@ namespace FBTW.InputManager
                             break;
                         case "Horse Unit":
                             // Human Units need to aproach the horse and then ride the horse
-                            
+                            // The first unit to get to the horse will ride, the rest will stop trying to do this because there is only one horse per person and only one horse can be clicked per time.
+                            PrepareUnitsToRideHorse(hit.transform);
                             break;
                         default:
                             // move
@@ -355,6 +356,12 @@ namespace FBTW.InputManager
                     HorseUnit hU = unit.gameObject.GetComponent<HorseUnit>();
                     hU.MoveUnit(targetPositionList[targetPositionListIndex]);
                 }
+
+                if (unit.gameObject.tag == "CavalryUnit")
+                {
+                    CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                    cU.MoveUnit(targetPositionList[targetPositionListIndex]);
+                }
                 targetPositionListIndex = (targetPositionListIndex + 1) % targetPositionList.Count;
             }
         }
@@ -393,8 +400,24 @@ namespace FBTW.InputManager
         {
             foreach (Transform unit in listSelectedUnits)
             {
-                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                pU.TakeDamage(damage);
+                if (unit.gameObject.tag == "HumanUnit")
+                {
+                    PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    pU.TakeDamage(damage);
+                }
+
+                if (unit.gameObject.tag == "HorseUnit")
+                {
+                    HorseUnit hU = unit.gameObject.GetComponent<HorseUnit>();
+                    hU.TakeDamage(damage);
+                }
+
+                if (unit.gameObject.tag == "CavalryUnit")
+                {
+                    CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                    cU.TakeDamage(damage);
+                }
+                
             }
         }
 
@@ -408,38 +431,80 @@ namespace FBTW.InputManager
                     PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
                     pU.setMovingToAttack(movingToAttack);
                 }
+                if (unit.gameObject.tag == "CavalryUnit")
+                {
+                    // Set boolean for attacking and the target for each unit selected
+                    CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                    cU.setMovingToAttack(movingToAttack);
+                }
             }
         }
 
         public void BeginAttack(Transform unit)
         {
-            if(m_target != null)
+            if (m_target != null)
             {
                 // Set boolean for attacking and the target for each unit selected
-                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                //pU.setAttacking(true);
-                // If enemy in range attack
-                if (EnemyInRange(m_target, unit))
+                if (unit.gameObject.tag == "HumanUnit")
                 {
-                    if(!pU.getAttacking())
+                    PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    //pU.setAttacking(true);
+                    // If enemy in range attack
+                    if (EnemyInRange(m_target, unit))
                     {
-                        PerformAttack(m_target, unit);
-                    }
 
+                        if (!pU.getAttacking())
+                        {
+                            PerformAttack(m_target, unit);
+                        }
+                    }
+                    else
+                    {
+                        // Move closer to enemy
+                        pU.setAttacking(false);
+                        pU.navAgent.speed = 3.5f;
+                        ApproachEnemy(m_target, unit);
+                    }
                 }
-                else
+                if (unit.gameObject.tag == "CavalryUnit")
                 {
-                    // Move closer to enemy
-                    pU.setAttacking(false);
-                    pU.navAgent.speed = 3.5f;
-                    ApproachEnemy(m_target, unit);
+                    
+                    CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                    //cU.setAttacking(true);
+                    // If enemy in range attack
+                    if (EnemyInRange(m_target, unit))
+                    {
+                        if (!cU.getAttacking())
+                        {
+                            PerformAttack(m_target, unit);
+                        }
+
+                    }
+                    else
+                    {
+                        // Move closer to enemy
+                        cU.setAttacking(false);
+                        cU.navAgent.speed = 7.0f;
+                        ApproachEnemy(m_target, unit);
+                    }
                 }
+
             }
             else 
             {
-                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                pU.setMovingToAttack(false);
-                pU.navAgent.speed = 3.5f;
+                if (unit.gameObject.tag == "HumanUnit")
+                {
+                    PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    pU.setMovingToAttack(false);
+                    pU.navAgent.speed = 3.5f;
+                }
+                if (unit.gameObject.tag == "CavalryUnit")
+                {
+                    CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                    cU.setMovingToAttack(false);
+                    cU.navAgent.speed =  7.0f;
+                }
+                    
             }
 
         }
@@ -449,19 +514,41 @@ namespace FBTW.InputManager
             Vector3 targetLocation = target.position;
             Vector3 direction = targetLocation - unit.position;
             // Weapon range should be defined inside player unit later
-            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            if (direction.sqrMagnitude < pU.getAttackRange() * pU.getAttackRange())
+            if (unit.gameObject.tag == "HumanUnit")
             {
-                return true;
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                if (direction.sqrMagnitude < pU.getAttackRange() * pU.getAttackRange())
+                {
+                    return true;
+                }
+                return false;
+            }
+            if (unit.gameObject.tag == "CavalryUnit")
+            {
+                CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                if (direction.sqrMagnitude < cU.getAttackRange() * cU.getAttackRange())
+                {
+                    return true;
+                }
+                return false;
             }
             return false;
         }
 
         private void ApproachEnemy(Transform target, Transform unit)
         {
-            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            Vector3 attackPosition = FindNearestAttackPosition(target, unit);
-            pU.MoveUnit(attackPosition);
+            if (unit.gameObject.tag == "HumanUnit")
+            {
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                Vector3 attackPosition = FindNearestAttackPosition(target, unit);
+                pU.MoveUnit(attackPosition);
+            }
+            if (unit.gameObject.tag == "CavalryUnit")
+            {
+                CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                Vector3 attackPosition = FindNearestAttackPosition(target, unit);
+                cU.MoveUnit(attackPosition);
+            }
         }
 
         private Vector3 FindNearestAttackPosition(Transform target, Transform unit)
@@ -470,16 +557,24 @@ namespace FBTW.InputManager
             Vector3 targetLocation = target.position;
             Vector3 direction = targetLocation - unit.position;
             float targetDistance = direction.magnitude;
-            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            float distanceToTravel = targetDistance - (0.9f * pU.getAttackRange());
-            return Vector3.Lerp(unit.position, targetLocation, distanceToTravel / targetDistance);
+            float distanceToTravel;
+            if (unit.gameObject.tag == "HumanUnit")
+            {
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                distanceToTravel = targetDistance - (0.9f * pU.getAttackRange());
+            }
+            else
+            {
+                CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                distanceToTravel = targetDistance - (0.9f * cU.getAttackRange());
+            }
+                return Vector3.Lerp(unit.position, targetLocation, distanceToTravel / targetDistance);
         }
         
         private void PerformAttack(Transform target, Transform unit)
         {
             if (target != null)
             {
-                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
                 // If enemy got out of range approach
                 if (!EnemyInRange(target, unit))
                 {
@@ -501,11 +596,19 @@ namespace FBTW.InputManager
             }
             else
             {
-                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-                LineController lC = unit.gameObject.GetComponent<LineController>();
-                pU.setMovingToAttack(false);
-                lC.points[1] = unit.Find("HookPoint");
-                lC.lr.enabled = false;
+                if (unit.gameObject.tag == "HumanUnit")
+                {
+                    PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    LineController lC = unit.gameObject.GetComponent<LineController>();
+                    pU.setMovingToAttack(false);
+                    lC.points[1] = unit.Find("HookPoint");
+                    lC.lr.enabled = false;
+                }
+                if (unit.gameObject.tag == "CavalryUnit")
+                {
+                    CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                    cU.setMovingToAttack(false);
+                }
             }
 
         }
@@ -527,6 +630,7 @@ namespace FBTW.InputManager
             }
 
         }
+
         private void RotateToEnemy(Transform target, Transform unit)
         {
             // Find a good turn speed i don't know
@@ -536,26 +640,42 @@ namespace FBTW.InputManager
         }
         private void Attack(Transform target, Transform unit)
         {
-            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            LineController lC = unit.gameObject.GetComponent<LineController>();
+            if (unit.gameObject.tag == "HumanUnit")
+            {
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                LineController lC = unit.gameObject.GetComponent<LineController>();
 
-            // Implement hook in the target here
-            lC.points[1] = target;
-            lC.lr.enabled = true;
+                // Implement hook in the target here
+                lC.points[1] = target;
+                lC.lr.enabled = true;
 
-            pU.setAttacking(true);
-            pU.navAgent.speed = 10.0f;
+                pU.setAttacking(true);
+                pU.navAgent.speed = 10.0f;
 
-            // Return closest point of enemy position
-            Vector3 targetLocation = target.position;
-            Vector3 direction = targetLocation - unit.position;
+                // Return closest point of enemy position
+                Vector3 targetLocation = target.position;
+                Vector3 direction = targetLocation - unit.position;
 
-            Vector3 dashPosition = targetLocation + 2*direction;
-            pU.MoveUnit(dashPosition);
-            cr1 = DisableLineRenderer(lC);
-            cr2 = ApplyDamage(target, unit);
-            StartCoroutine(cr1);
-            StartCoroutine(cr2);
+                Vector3 dashPosition = targetLocation + 2 * direction;
+                pU.MoveUnit(dashPosition);
+                cr1 = DisableLineRenderer(lC);
+                cr2 = ApplyDamage(target, unit);
+                StartCoroutine(cr1);
+                StartCoroutine(cr2);
+            }
+            if (unit.gameObject.tag == "CavalryUnit")
+            {
+                CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                cU.setAttacking(true);
+
+                // Return closest point of enemy position
+                Vector3 targetLocation = target.position;
+                Vector3 direction = targetLocation - unit.position;
+
+                Vector3 dashPosition = targetLocation + 2 * direction;
+                cU.MoveUnit(dashPosition);
+                StartCoroutine(ApplyDamage(target, unit));
+            }
         }
 
         private IEnumerator DisableLineRenderer(LineController lC)
@@ -568,9 +688,25 @@ namespace FBTW.InputManager
         {
             yield return new WaitForSeconds(1.0f);
             TitanUnit tU = target.gameObject.GetComponent<TitanUnit>();
-            PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
-            // for now the damage is just the agility, we gonna fix this to an equation, i think
-            tU.TakeDamage(pU.currentAgility);
+            if (unit.gameObject.tag == "HumanUnit")
+            {
+                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                // for now the damage is just the agility, we gonna fix this to an equation, i think
+                tU.TakeDamage(pU.currentAgility);
+            }
+                
+            if (unit.gameObject.tag == "CavalryUnit")
+            {
+                CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                // for now the damage is just the agility, we gonna fix this to an equation, i think
+                tU.TakeDamage(cU.currentAgility);
+            }
+                
+        }
+
+        private void PrepareUnitsToRideHorse(Transform horse)
+        {
+
         }
 
     }
