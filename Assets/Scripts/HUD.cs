@@ -74,7 +74,7 @@ namespace FBTW.HUD
                     text = tU.getHealth().ToString() + "/" + tU.maxHealth.ToString();
                     GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_titanPortrait);
                     GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
-                    text = 999 + " Damage ";
+                    text = 5 + " Damage ";
                     GUI.Label(new Rect(textLeft, topPos + 20, TEXT_WIDTH, TEXT_HEIGHT), text);
                     break;
                 case UnitType.CAVALRY:

@@ -19,7 +19,7 @@ namespace FBTW.Units.Titans
 
         public GameObject titan;
 
-        public int maxHealth = 5;
+        public int maxHealth;
         private int currentHealth;
         public HealthBar healthBar;
 
