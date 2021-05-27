@@ -18,7 +18,8 @@ namespace FBTW.Player
 
         public int m_agility = 100;
 
-        public int maxHealth = 5;
+        public int maxHealthHuman = 5;
+        public int maxHealthCavalry = 10;
         private int m_playerUnitCount;
 
         private Skills.PlayerSkills playerSkills;
@@ -49,12 +50,14 @@ namespace FBTW.Player
                     }
                 case PlayerSkills.SkillType.MaxHealth_1:
                     {
-                        maxHealth = 10;
+                        maxHealthHuman = 10;
+                        maxHealthCavalry = 15;
                         break;
                     }
                 case PlayerSkills.SkillType.MaxHealth_2:
                     {
-                        maxHealth = 15;
+                        maxHealthHuman = 15;
+                        maxHealthCavalry = 20;
                         break;
                     }
             }                            
@@ -74,6 +77,16 @@ namespace FBTW.Player
                         if (unit.gameObject.tag == "HumanUnit")
                         {
                             PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                            Collider[] hitColliders = Physics.OverlapSphere(unit.position, 5f);
+                            pU.modifier = 0;
+                            foreach (var hitCollider in hitColliders)
+                            {
+                                
+                                if(hitCollider.gameObject.name.Contains("Tree"))
+                                {
+                                    pU.modifier = 50;
+                                }
+                            }
                             if (pU.getMovingToAttack())
                             {
                                 InputHandler.instance.BeginAttack(unit);
@@ -82,31 +95,41 @@ namespace FBTW.Player
                             {
                                 pU.RideHorse();
                             }
-                            if (pU.currentMaxHealth != maxHealth)
+                            if (pU.currentMaxHealth != maxHealthHuman)
                             {
-                                pU.setCurrentHealth(maxHealth);
-                                pU.setMaximumHealth(maxHealth);
+                                pU.setCurrentHealth(maxHealthHuman);
+                                pU.setMaximumHealth(maxHealthHuman);
                             }
-                            if(pU.getAgility() != m_agility)
+                            if(pU.getAgility() != m_agility + pU.modifier)
                             {
-                                pU.setAgility(m_agility);
+                                pU.setAgility(m_agility + pU.modifier);
                             }
                         }
                         if (unit.gameObject.tag == "CavalryUnit")
                         {
                             CavalryUnit cU = unit.gameObject.GetComponent<CavalryUnit>();
+                            Collider[] hitColliders = Physics.OverlapSphere(unit.position, 5f);
+                            cU.modifier = 50;
+                            
+                            foreach (var hitCollider in hitColliders)
+                            {
+                                if (hitCollider.gameObject.name.Contains("Tree"))
+                                {
+                                    cU.modifier = 0;
+                                }
+                            }
                             if (cU.getMovingToAttack())
                             {
                                 InputHandler.instance.BeginAttack(unit);
                             }
-                            if (cU.currentMaxHealth != maxHealth)
+                            if (cU.currentMaxHealth != maxHealthCavalry)
                             {
-                                cU.setCurrentHealth(maxHealth);
-                                cU.setMaximumHealth(maxHealth);
+                                cU.setCurrentHealth(maxHealthCavalry);
+                                cU.setMaximumHealth(maxHealthCavalry);
                             }
-                            if (cU.getAgility() != m_agility)
+                            if (cU.getAgility() != m_agility + cU.modifier)
                             {
-                                cU.setAgility(m_agility);
+                                cU.setAgility(m_agility + cU.modifier);
                             }
                         }
                     }

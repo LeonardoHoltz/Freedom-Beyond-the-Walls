@@ -90,6 +90,10 @@ namespace FBTW.InputManager
                 {
                     HUD.HUD.instance.DrawInspectWindow(lastUnitSelected, HUD.HUD.UnitType.TITAN);
                 }
+                else if (lastUnitSelected.gameObject.tag == "CavalryUnit")
+                {
+                    HUD.HUD.instance.DrawInspectWindow(lastUnitSelected, HUD.HUD.UnitType.CAVALRY);
+                }
 
 
             }
@@ -213,7 +217,7 @@ namespace FBTW.InputManager
             // Show portrait of last selected unit
             if (Input.GetKeyDown(KeyCode.I) && lastUnitSelected != null)
             {
-                if (lastUnitSelected.gameObject.tag == "HumanUnit" || lastUnitSelected.gameObject.tag == "TitanUnit")
+                if (lastUnitSelected.gameObject.tag == "HumanUnit" || lastUnitSelected.gameObject.tag == "TitanUnit" || lastUnitSelected.gameObject.tag == "CavalryUnit")
                 {
                     showInspectWindow = !showInspectWindow;
                 }

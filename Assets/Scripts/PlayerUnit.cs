@@ -21,6 +21,8 @@ namespace FBTW.Units.Player
 
         public int currentAgility;
 
+        public int modifier = 0;
+
         private int currentHealth;
 
         public int currentMaxHealth;
@@ -36,9 +38,9 @@ namespace FBTW.Units.Player
         void Start()
         {
             currentAgility = PlayerManager.instance.m_agility;
-            currentHealth = PlayerManager.instance.maxHealth;
-            currentMaxHealth = PlayerManager.instance.maxHealth;
-            healthBar.SetMaxHealth(PlayerManager.instance.maxHealth);
+            currentHealth = PlayerManager.instance.maxHealthHuman;
+            currentMaxHealth = PlayerManager.instance.maxHealthHuman;
+            healthBar.SetMaxHealth(PlayerManager.instance.maxHealthHuman);
             animationOffset = Random.Range(0.0f, 1.0f);
             unit.GetComponent<Animator>().SetFloat("offset", animationOffset);
         }

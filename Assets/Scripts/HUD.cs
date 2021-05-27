@@ -13,12 +13,12 @@ namespace FBTW.HUD
 {
     public class HUD : MonoBehaviour
     {
-        public enum UnitType { CONNIE, SASHA, TITAN };
+        public enum UnitType { CONNIE, SASHA, TITAN, CAVALRY };
         public static HUD instance;
         private const int ICON_WIDTH = 32, ICON_HEIGHT = 32, TEXT_WIDTH = 128, TEXT_HEIGHT = 32, RESOURCE_BAR_HEIGHT = 40, INSPECT_WINDOW_WIDTH = 200, INSPECT_WINDOW_HEIGHT = 80;
         public GUISkin m_resourceSkin, m_inspectSkin;
         private int m_foodCount, m_gasCount, m_bladesCount, m_unitCount;
-        public Texture2D m_foodTexture, m_unitTexture, m_agilityIcon, m_conniePortrait, m_sashaPortrait, m_titanPortrait;
+        public Texture2D m_foodTexture, m_unitTexture, m_agilityIcon, m_conniePortrait, m_sashaPortrait, m_titanPortrait, m_cavalryPortrait;
 
         void Start()
         {
@@ -49,12 +49,13 @@ namespace FBTW.HUD
         {
             PlayerUnit pU;
             TitanUnit tU;
+            CavalryUnit cU;
             string text;
             switch (unitType)
             {
                 case UnitType.CONNIE:
                     pU = unit.gameObject.GetComponent<PlayerUnit>();
-                    text = pU.getHealth().ToString() + "/" + PlayerManager.instance.maxHealth.ToString();
+                    text = pU.getHealth().ToString() + "/" + PlayerManager.instance.maxHealthHuman.ToString();
                     GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_conniePortrait);
                     GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
                     text = pU.getAgility().ToString() + " Agility ";
@@ -62,7 +63,7 @@ namespace FBTW.HUD
                     break;
                 case UnitType.SASHA:
                     pU = unit.gameObject.GetComponent<PlayerUnit>();
-                    text = pU.getHealth().ToString() + "/" + PlayerManager.instance.maxHealth.ToString();
+                    text = pU.getHealth().ToString() + "/" + PlayerManager.instance.maxHealthHuman.ToString();
                     GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_sashaPortrait);
                     GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
                     text = pU.getAgility().ToString() + " Agility ";
@@ -74,6 +75,14 @@ namespace FBTW.HUD
                     GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_titanPortrait);
                     GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
                     text = 999 + " Damage ";
+                    GUI.Label(new Rect(textLeft, topPos + 20, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    break;
+                case UnitType.CAVALRY:
+                    cU = unit.gameObject.GetComponent<CavalryUnit>();
+                    text = cU.getHealth().ToString() + "/" + PlayerManager.instance.maxHealthCavalry.ToString();
+                    GUI.DrawTexture(new Rect(iconLeft * 2, topPos + 4, ICON_WIDTH * 2, ICON_HEIGHT * 2), m_cavalryPortrait);
+                    GUI.Label(new Rect(textLeft, topPos, TEXT_WIDTH, TEXT_HEIGHT), text);
+                    text = cU.getAgility().ToString() + " Agility ";
                     GUI.Label(new Rect(textLeft, topPos + 20, TEXT_WIDTH, TEXT_HEIGHT), text);
                     break;
             }
