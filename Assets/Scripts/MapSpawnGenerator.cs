@@ -7,10 +7,11 @@ public class MapSpawnGenerator : MonoBehaviour
     private int numberOfTrees = 300;
     private int numberOfRocks = 200;
 
-    private float mapSize; // TODO: Get size of map in the future, hardcoded right now
+    private float mapSize, mapSizeForCity; // TODO: Get size of map in the future, hardcoded right now
         
     public List<GameObject> treesPrefabs;
     public List<GameObject> rocksPrefabs;
+    public GameObject shiganshina;
 
     public Transform parent;
     public GameObject treeChild, rockChild;
@@ -23,10 +24,18 @@ public class MapSpawnGenerator : MonoBehaviour
         parent = GameObject.Find("Scenario").transform;
 
         mapSize = 5 * GameObject.Find("Plane").transform.localScale.x;
+        mapSizeForCity = 3.5f * GameObject.Find("Plane").transform.localScale.x;
 
         float xSpawn, zSpawn;
-            
-        for(int i = 0; i < numberOfTrees; i++)
+
+        // Shiganshina Spawn:
+
+        xSpawn = Random.Range(mapSizeForCity * -1, mapSizeForCity);
+        zSpawn = Random.Range(mapSizeForCity * -1, mapSizeForCity);
+
+        Instantiate(shiganshina, new Vector3(xSpawn, 0, zSpawn), Quaternion.identity).transform.SetParent(parent);
+
+        for (int i = 0; i < numberOfTrees; i++)
         {
             do
             {

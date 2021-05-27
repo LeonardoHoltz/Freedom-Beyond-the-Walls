@@ -37,9 +37,17 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         instance = this;
-        newPosition = transform.position;
+        //newPosition = transform.position;
         newRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
+        StartCoroutine(FocusCamOnCity(0.001f));
+    }
+
+    IEnumerator FocusCamOnCity(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        newPosition = GameObject.Find("Shiganshina(Clone)").transform.position;
+        newRotation = newRotation *= Quaternion.Euler(Vector3.up * -65f);
     }
 
     // Update is called once per frame

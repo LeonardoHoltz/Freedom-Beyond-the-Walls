@@ -11,7 +11,8 @@ public class CameraPoint : MonoBehaviour
     {
         sceneCamera = GameObject.Find("CameraRig");
         this.transform.SetParent(sceneCamera.transform);
-        this.transform.position = sceneCamera.transform.position; ;
+        this.transform.position = sceneCamera.transform.position;
+
     }
 
     // Update is called once per frame
