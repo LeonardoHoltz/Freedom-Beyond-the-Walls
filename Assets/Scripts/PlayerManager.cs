@@ -78,6 +78,10 @@ namespace FBTW.Player
                             {
                                 InputHandler.instance.BeginAttack(unit);
                             }
+                            if (pU.getWantsToRideHorse())
+                            {
+                                pU.RideHorse();
+                            }
                             if (pU.currentMaxHealth != maxHealth)
                             {
                                 pU.setCurrentHealth(maxHealth);

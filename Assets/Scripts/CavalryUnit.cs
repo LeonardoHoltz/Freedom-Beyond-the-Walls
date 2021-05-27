@@ -13,7 +13,7 @@ namespace FBTW.Units.Player
     {
         public NavMeshAgent navAgent;
 
-        public GameObject unit;
+        public GameObject unit, horse, respectiveHuman;
 
         public static float m_attackRange = 10.0f;
 
@@ -58,6 +58,8 @@ namespace FBTW.Units.Player
                 }
             }
             */
+
+            
 
         }
 
@@ -127,6 +129,16 @@ namespace FBTW.Units.Player
         public float getAttackRange()
         {
             return m_attackRange;
+        }
+
+        public GameObject getHuman()
+        {
+            return respectiveHuman;
+        }
+
+        public GameObject getHorse()
+        {
+            return horse;
         }
 
     }

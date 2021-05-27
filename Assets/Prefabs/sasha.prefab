@@ -1834,6 +1834,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navAgent: {fileID: 8246751790125137433}
   unit: {fileID: 1012904590000988632}
+  respectiveCavalry: {fileID: 8002023515401735797, guid: 9bab004a72cde704797c7cc0d2da9f6e,
+    type: 3}
+  unitsLayers:
+    serializedVersion: 2
+    m_Bits: 512
   currentAgility: 0
   currentMaxHealth: 0
   healthBar: {fileID: 5898140033923919656}

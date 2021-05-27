@@ -24,6 +24,7 @@ namespace FBTW.InputManager
         public static RaycastHit hit; // what is hitted by the ray
 
         private static List<Transform> listSelectedUnits = new List<Transform>();
+        public static List<Transform> listUnitsToBeselected = new List<Transform>();
 
         private bool isDragging = false;
 
@@ -44,8 +45,17 @@ namespace FBTW.InputManager
 
         private void LateUpdate()
         {
+            foreach(Transform unit in listUnitsToBeselected)
+            {
+                AddUnitToList(unit);
+                HighlightUnit(unit);
+            }
+
+            listUnitsToBeselected.Clear();
+
             for(int i = 0; i < listSelectedUnits.Count; i++)
             {
+                // Remove destroyed units from the selected ones
                 if(listSelectedUnits[i] == null)
                 {
                     listSelectedUnits.RemoveAt(i);
@@ -172,14 +182,16 @@ namespace FBTW.InputManager
                             m_target = hit.transform;
                             SetSelectedAttacking(true);
                             break;
-                        case "Horse Unit":
+                        case "HorseUnit":
                             // Human Units need to aproach the horse and then ride the horse
                             // The first unit to get to the horse will ride, the rest will stop trying to do this because there is only one horse per person and only one horse can be clicked per time.
-                            PrepareUnitsToRideHorse(hit.transform);
+                            PrepareUnitsToRideHorse(hit.transform, true);
+                            
                             break;
                         default:
                             // move
                             SetSelectedAttacking(false);
+                            PrepareUnitsToRideHorse(hit.transform, false);
                             MoveSelectedUnits(hit.point);
                             break;
                     }
@@ -211,6 +223,34 @@ namespace FBTW.InputManager
                 showSkillTree = !showSkillTree;
                 skillTreeWindow.SetActive(showSkillTree);
 
+            }
+
+            // Desmont horse to the selected cavalry units
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                foreach(Transform unit in listSelectedUnits)
+                {
+                    if(unit.tag == "CavalryUnit")
+                    {
+                        //RemoveUnitFromList(unit);
+                        //RemoveHighlight(unit);
+                        Vector3 cavalryPosition = unit.position;
+                        Quaternion cavalryRotation = unit.rotation;
+
+                        GameObject human = unit.GetComponent<CavalryUnit>().getHuman();
+                        GameObject horse = unit.GetComponent<CavalryUnit>().getHorse();
+
+                        Destroy(unit.gameObject);
+
+                        GameObject pU = Instantiate(human, new Vector3(cavalryPosition.x + 0.8f, 0, cavalryPosition.z), cavalryRotation);
+                        pU.transform.SetParent(GameObject.Find("Survey Corps").transform);
+                        listUnitsToBeselected.Add(pU.transform);
+
+                        GameObject hU = Instantiate(horse, cavalryPosition, cavalryRotation);
+                        hU.transform.SetParent(GameObject.Find("Survey Corps").transform);
+                        listUnitsToBeselected.Add(hU.transform);
+                    }
+                }
             }
 
 
@@ -704,8 +744,21 @@ namespace FBTW.InputManager
                 
         }
 
-        private void PrepareUnitsToRideHorse(Transform horse)
+        private void PrepareUnitsToRideHorse(Transform horse, bool wantsToRide)
         {
+            foreach (Transform unit in listSelectedUnits)
+            {
+                // Only human units can ride horses...
+                if (unit.gameObject.tag == "HumanUnit")
+                {
+                    PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                    pU.setWantsToRideHorse(wantsToRide);
+                    if(wantsToRide)
+                    {
+                        pU.setTargetHorse(horse);
+                    }
+                }
+            }
 
         }
 

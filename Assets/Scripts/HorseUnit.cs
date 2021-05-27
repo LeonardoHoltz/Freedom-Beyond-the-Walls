@@ -18,6 +18,7 @@ namespace FBTW.Units.Player
         public int maxHealth = 5;
         private int currentHealth;
         public HealthBar healthBar;
+        private GameObject humanMounting;
 
         Vector3 last_position = Vector3.zero, position;
 
@@ -25,6 +26,7 @@ namespace FBTW.Units.Player
         {
             currentHealth = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
+            humanMounting = null;
         }
 
         private void Update()
@@ -65,6 +67,17 @@ namespace FBTW.Units.Player
         {
             navAgent.SetDestination(_destination);
         }
+
+        public GameObject getHumanMoutinginTheHorse()
+        {
+            return humanMounting;
+        }
+
+        public void setHumanMoutinginTheHorse(GameObject human)
+        {
+            humanMounting = human;
+        }
+
     }
 
 }
