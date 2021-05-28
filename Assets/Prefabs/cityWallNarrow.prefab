@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3054845988150440071}
   - component: {fileID: 2175812018292841543}
   m_Layer: 8
-  m_Name: citywall (4)
-  m_TagString: Untagged
+  m_Name: cityWallNarrow
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

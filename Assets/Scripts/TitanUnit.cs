@@ -98,7 +98,7 @@ namespace FBTW.Units.Titans
         {
             Collider[] hitUnits = Physics.OverlapSphere(attackPoint.position, attackRange, unitsLayers);
 
-            if(hitUnits.Length > 0)
+            if (hitUnits.Length > 0)
             {
                 return true;
             }
@@ -107,22 +107,17 @@ namespace FBTW.Units.Titans
         public bool IsWallInAttackRange()
         {
             Collider[] obsFound = Physics.OverlapSphere(attackPoint.position, attackRange, obsLayers);
-            List<Collider> wallFound = new List<Collider>();
             foreach (var obs in obsFound)
             {
                 if (obs.gameObject.tag == "Wall")
                 {
-                    wallFound.Add(obs);
+                    return true;
                 }
-            }
-            if (wallFound.Count != 0)
-            {
-                return true;
             }
             return false;
         }
 
-        public void TitanAttack(bool attackingWall)
+        public void TitanAttack()
         {
             // Play animation
             //titan.GetComponent<Animator>().SetBool("isAttacking", true);
@@ -134,60 +129,43 @@ namespace FBTW.Units.Titans
 
             if(attackTime >= attackDelay)
             {
-                if (attackingWall)
+                // Detect Enemies in attack range
+                Collider[] hitUnits = Physics.OverlapSphere(attackPoint.position, attackRange, unitsLayers);
+                Collider[] obsFound = Physics.OverlapSphere(attackPoint.position, attackRange, obsLayers);
+
+                //Check if a wall has been hitted
+                foreach (var obs in obsFound)
                 {
-                    // Detect Enemies in attack range
-                    Collider[] obsFound = Physics.OverlapSphere(attackPoint.position, attackRange, obsLayers);
-                    List<Collider> wallFound = new List<Collider>();
-                    foreach (var obs in obsFound)
+                    if (obs.gameObject.tag == "Wall")
                     {
-                        if (obs.gameObject.tag == "Wall")
-                        {
-                            wallFound.Add(obs);
-                        }
+                        // Damage Wall
+                        CityManager.instance.TakeDamage(5);
+                        break;
                     }
-                    // Damage them
-                    foreach (Collider unit in wallFound)
-                    {
-                        if (unit.tag == "Wall")
-                        {
-                            CityManager.instance.TakeDamage(5);
-                        }
-
-                    }
-                    attackTime = 0f;
-                    attackInProgression = false;
                 }
-                else
+
+                // Damage them
+                foreach (Collider unit in hitUnits)
                 {
-                    // Detect Enemies in attack range
-                    Collider[] hitUnits = Physics.OverlapSphere(attackPoint.position, attackRange, unitsLayers);
-
-                    // Damage them
-                    foreach (Collider unit in hitUnits)
+                    if (unit.tag == "HumanUnit")
                     {
-                        if (unit.tag == "HumanUnit")
-                        {
-                            PlayerUnit pU = unit.transform.gameObject.GetComponent<PlayerUnit>();
-                            pU.TakeDamage(5);
-                        }
-                        if (unit.tag == "HorseUnit")
-                        {
-                            HorseUnit hU = unit.transform.gameObject.GetComponent<HorseUnit>();
-                            hU.TakeDamage(5);
-                        }
-                        if (unit.tag == "CavalryUnit")
-                        {
-                            CavalryUnit cU = unit.transform.gameObject.GetComponent<CavalryUnit>();
-                            cU.TakeDamage(5);
-                        }
-
+                        PlayerUnit pU = unit.transform.gameObject.GetComponent<PlayerUnit>();
+                        pU.TakeDamage(5);
                     }
-                    attackTime = 0f;
-                    attackInProgression = false;
+                    if (unit.tag == "HorseUnit")
+                    {
+                        HorseUnit hU = unit.transform.gameObject.GetComponent<HorseUnit>();
+                        hU.TakeDamage(5);
+                    }
+                    if (unit.tag == "CavalryUnit")
+                    {
+                        CavalryUnit cU = unit.transform.gameObject.GetComponent<CavalryUnit>();
+                        cU.TakeDamage(5);
+                    }
+
                 }
-                
-                
+                attackTime = 0f;
+                attackInProgression = false;
             }
         }
 

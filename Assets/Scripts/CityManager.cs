@@ -15,9 +15,9 @@ namespace FBTW.City
 
         public LayerMask unitsLayers;
 
-        private int currentHealth = 75;
+        public int currentHealth = 75;
 
-        private int currentMaxHealth = 75;
+        public int currentMaxHealth = 75;
 
         // Start is called before the first frame update
         void Start()

@@ -13,7 +13,7 @@ public class MapSpawnGenerator : MonoBehaviour
     public List<GameObject> rocksPrefabs;
     public GameObject shiganshina, titan;
 
-    public int numberTitans = 5;
+    public int numberTitans = 1;
 
     public float xCitySpawn, zCitySpawn;
 
@@ -28,7 +28,7 @@ public class MapSpawnGenerator : MonoBehaviour
         parent = GameObject.Find("Scenario").transform;
 
         mapSize = 250;
-        mapSizeForCity = 200;
+        mapSizeForCity = 150;
 
         float xSpawn, zSpawn;
 
@@ -47,7 +47,6 @@ public class MapSpawnGenerator : MonoBehaviour
         {
             do
             {
-                Debug.Log("Aaaaaaaaaa");
                 xSpawn = Random.Range(mapSize * -1, mapSize);
                 zSpawn = Random.Range(mapSize * -1, mapSize);
                 if ((xSpawn > xCitySpawn - 40f && xSpawn < xCitySpawn + 40f) && (zSpawn > zCitySpawn - 40f && zSpawn < zCitySpawn + 40f))
