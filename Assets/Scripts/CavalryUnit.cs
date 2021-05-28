@@ -30,6 +30,8 @@ namespace FBTW.Units.Player
 
         private bool m_isMovingToAttack, m_isMovingToEnemy, m_isAttacking;
 
+        Vector3 last_position = Vector3.zero, position;
+
         void Start()
         {
 
@@ -42,28 +44,25 @@ namespace FBTW.Units.Player
         private void Update()
         {
             // Animation:
-            /*
-            if (m_isAttacking)
+            Animator[] animators;
+            position = unit.GetComponent<Transform>().position;
+            if (unit.GetComponent<Transform>().position == last_position)
             {
-                unit.GetComponent<Animator>().SetBool("isAttacking", true);
+                animators = unit.GetComponentsInChildren<Animator>();
+                foreach(Animator animator in animators)
+                {
+                    animator.speed = 0;
+                }
             }
             else
             {
-                unit.GetComponent<Animator>().SetBool("isAttacking", false);
-
-                if (unit.GetComponent<Rigidbody>().IsSleeping())
+                animators = unit.GetComponentsInChildren<Animator>();
+                foreach (Animator animator in animators)
                 {
-                    unit.GetComponent<Animator>().SetBool("isRunning", false);
-                }
-                else
-                {
-                    unit.GetComponent<Animator>().SetBool("isRunning", true);
+                    animator.speed = 1;
                 }
             }
-            */
-
-            
-
+            last_position = position;
         }
 
         public void TakeDamage(int damage)

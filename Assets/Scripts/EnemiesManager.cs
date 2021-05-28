@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 using FBTW.InputManager;
 using FBTW.Units.Titans;
@@ -63,6 +64,12 @@ namespace FBTW.Enemies
             else
             {
                 tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
+                if(!tU.gameObject.GetComponent<AudioSource>().isPlaying)
+                {
+                    tU.gameObject.GetComponent<AudioSource>().Play();
+                }
+                
+                //tU.gameObject.GetComponent<AudioSource>().loop = true;
                 tU.AgentNotMoving(false);
                 // Detect Humans nearby
                 Collider[] unitsFound = Physics.OverlapSphere(tU.GetComponent<Transform>().position, tU.getVisionRange(), unitsLayers);
@@ -127,13 +134,23 @@ namespace FBTW.Enemies
                     if(tU.IsEnemyInAttackRange())
                     {
                         tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", true);
+<<<<<<< HEAD
                         tU.TitanAttack(tU.foundWall());
+=======
+                        tU.gameObject.GetComponent<AudioSource>().Stop();
+                        tU.TitanAttack();
+>>>>>>> refs/remotes/origin/animated_branch
                     }
                     // Human is near but not in the attack range -> chase
                     else
                     {
                         tU.AgentNotMoving(false);
                         tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
+                        if (!tU.gameObject.GetComponent<AudioSource>().isPlaying)
+                        {
+                            tU.gameObject.GetComponent<AudioSource>().Play();
+                        }
+                        //tU.gameObject.GetComponent<AudioSource>().loop = true;
                         tU.attackTime = 0f;
                         Transform nearestHuman = CheckNearestHuman(unitsFound, tU);
                         ApproachTarget(nearestHuman, tU);
