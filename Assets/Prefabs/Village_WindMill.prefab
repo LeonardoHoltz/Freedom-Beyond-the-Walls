@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36fd194b5f43b5a46841bda4076508c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 1
+  waitTime: 3.01
   cooldownTime: 0
   maxCooldownTime: 1
   windmillObject: {fileID: 7201659792290378448}
