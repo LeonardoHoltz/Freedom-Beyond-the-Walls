@@ -1,0 +1,40 @@
+[1mdiff --cc Assets/Scripts/EnemiesManager.cs[m
+[1mindex 80fb280,f03b0a8..0000000[m
+[1m--- a/Assets/Scripts/EnemiesManager.cs[m
+[1m+++ b/Assets/Scripts/EnemiesManager.cs[m
+[36m@@@ -127,19 -97,29 +134,29 @@@[m [mnamespace FBTW.Enemie[m
+                      if(tU.IsEnemyInAttackRange())[m
+                      {[m
+                          tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", true);[m
+[32m++<<<<<<< HEAD[m
+[32m +                        tU.TitanAttack(tU.foundWall());[m
+[32m++=======[m
+[32m+                         tU.gameObject.GetComponent<AudioSource>().Stop();[m
+[32m+                         tU.TitanAttack();[m
+[32m++>>>>>>> refs/remotes/origin/animated_branch[m
+                      }[m
+                      // Human is near but not in the attack range -> chase[m
+                      else[m
+                      {[m
+                          tU.AgentNotMoving(false);[m
+                          tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", false);[m
+[32m+                         if (!tU.gameObject.GetComponent<AudioSource>().isPlaying)[m
+[32m+                         {[m
+[32m+                             tU.gameObject.GetComponent<AudioSource>().Play();[m
+[32m+                         }[m
+[32m+                         //tU.gameObject.GetComponent<AudioSource>().loop = true;[m
+                          tU.attackTime = 0f;[m
+                          Transform nearestHuman = CheckNearestHuman(unitsFound, tU);[m
+[31m -                        ApproachHuman(nearestHuman, tU);[m
+[32m +                        ApproachTarget(nearestHuman, tU);[m
+                      }[m
+                  } [m
+[31m -            }[m
+[31m -[m
+[31m -           [m
+[31m -            [m
+[31m -            [m
+[32m +            }         [m
+          }[m
+  [m
+          public void WalksRandomly(TitanUnit tU)[m

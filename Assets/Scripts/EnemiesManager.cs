@@ -134,12 +134,9 @@ namespace FBTW.Enemies
                     if(tU.IsEnemyInAttackRange())
                     {
                         tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", true);
-<<<<<<< HEAD
                         tU.TitanAttack(tU.foundWall());
-=======
                         tU.gameObject.GetComponent<AudioSource>().Stop();
-                        tU.TitanAttack();
->>>>>>> refs/remotes/origin/animated_branch
+                        tU.TitanAttack(tU.foundWall());
                     }
                     // Human is near but not in the attack range -> chase
                     else
