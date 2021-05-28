@@ -2315,6 +2315,9 @@ MonoBehaviour:
   unitsLayers:
     serializedVersion: 2
     m_Bits: 512
+  obsLayers:
+    serializedVersion: 2
+    m_Bits: 256
   navAgent: {fileID: 2278463164408045654}
   titan: {fileID: 5207565568934189050}
   maxHealth: 1000

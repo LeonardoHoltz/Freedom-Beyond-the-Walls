@@ -7,13 +7,18 @@ namespace FBTW.Game
 {
     public class GameManager : MonoBehaviour
     {
-
+        public static GameManager instance; // Singleton
         bool gameEnded = false;
 
         public float restartDelay = 1f;
 
         public GameObject completeLevelUI;
         public GameObject EndGameUI;
+
+        void Start()
+        {
+            instance = this;
+        }
 
         public void CompleteLevel()
         {

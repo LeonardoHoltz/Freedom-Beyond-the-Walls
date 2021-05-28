@@ -1256,9 +1256,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 668793473310703176}
+  - component: {fileID: 6932375778939714457}
+  - component: {fileID: 8791016179850626466}
   m_Layer: 8
   m_Name: Shiganshina
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1305,6 +1307,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6932375778939714457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331362036538557875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139dbfb2d6387a34fb929388cc2d381f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  cityWalls: {fileID: 3531860339565478984}
+  unitsLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  healthBar: {fileID: 0}
+--- !u!65 &8791016179850626466
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331362036538557875}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 114.6, y: 30.1, z: 123.59}
+  m_Center: {x: 9.4, y: 14.65, z: -32.06}
 --- !u!1001 &253426570251816250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1586,6 +1619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: citywall (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945563202818344741, guid: 844a959199780a646ab66a092e19dcee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4434537620758289823, guid: 844a959199780a646ab66a092e19dcee,
         type: 3}
@@ -2727,6 +2765,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CityWall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}
       propertyPath: m_RootOrder
@@ -2961,6 +3004,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CityWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}
@@ -6717,6 +6765,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CityWall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}
       propertyPath: m_RootOrder
@@ -9037,6 +9090,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CityWall
       objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}
       propertyPath: m_RootOrder
@@ -10522,6 +10580,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CityWall
       objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}
       propertyPath: m_RootOrder
@@ -11802,6 +11865,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: citywall (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3945563202818344741, guid: 844a959199780a646ab66a092e19dcee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4434537620758289823, guid: 844a959199780a646ab66a092e19dcee,
         type: 3}
       propertyPath: m_RootOrder
@@ -12542,6 +12610,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CityWall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}
       propertyPath: m_RootOrder
@@ -12802,10 +12875,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3531860340462895533}
     m_Modifications:
+    - target: {fileID: 7199511923416552948, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7199511924610175352, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
         type: 3}
       propertyPath: m_Name
       value: CityWallCorner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199511924610175352, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7199511924610175353, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
         type: 3}
@@ -12861,6 +12944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588810222983917567, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a, type: 3}
@@ -13337,6 +13425,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CityWall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}
@@ -14583,6 +14676,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: citywall (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8966225193429344883, guid: 8d7512262987df64fbf0515803a281db,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d7512262987df64fbf0515803a281db, type: 3}
 --- !u!4 &3929682291212495091 stripped
@@ -14853,10 +14951,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3531860339565478985}
     m_Modifications:
+    - target: {fileID: 7199511923416552948, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7199511924610175352, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
         type: 3}
       propertyPath: m_Name
       value: CityWallCorner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199511924610175352, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7199511924610175353, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
         type: 3}
@@ -14912,6 +15020,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588810222983917567, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05aadeb7b3dab2145a2dd1acfbd65d2a, type: 3}
@@ -15542,6 +15655,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: citywall (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914418593589966587, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5726420388149292097, guid: 8071a993ae9a93e4c9cfc1266c27fdf7,
         type: 3}

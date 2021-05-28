@@ -15,12 +15,13 @@ namespace FBTW.Enemies
 
         public Transform titanUnits;
         public LayerMask unitsLayers;
+        public LayerMask obsLayers;
+
+        public Transform Scenario;
 
         private bool hasWaited = false;
 
         private float timer = 1f;
-
-        public GameManager gameManager;
 
         private int titanCount;
 
@@ -43,7 +44,7 @@ namespace FBTW.Enemies
             titanCount = titanUnits.childCount;
             if (titanCount <= 0 && hasWaited)
             {
-                gameManager.CompleteLevel();
+                GameManager.instance.CompleteLevel();
             }
             foreach (Transform titan in titanUnits)
             {
@@ -57,7 +58,7 @@ namespace FBTW.Enemies
         {
             if (tU.attackInProgression)
             {
-                tU.TitanAttack();
+                tU.TitanAttack(tU.foundWall());
             }
             else
             {
@@ -65,6 +66,24 @@ namespace FBTW.Enemies
                 tU.AgentNotMoving(false);
                 // Detect Humans nearby
                 Collider[] unitsFound = Physics.OverlapSphere(tU.GetComponent<Transform>().position, tU.getVisionRange(), unitsLayers);
+                Collider[] obsFound = Physics.OverlapSphere(tU.GetComponent<Transform>().position, tU.getVisionRange(), obsLayers);
+                List<Collider> wallFound = new List<Collider>();
+                foreach(var obs in obsFound)
+                {
+                    if (obs.gameObject.tag == "Wall")
+                    {
+                        wallFound.Add(obs);
+                    }
+                }
+                if(wallFound.Count != 0)
+                {
+                    tU.setFoundWall(true);
+                }
+                else
+                {
+                    tU.setFoundWall(false);
+                }
+
                 if (unitsFound.Length != 0)
                 {
                     // if humans are in the vision range, the titan is not anymore searching for humans
@@ -76,8 +95,26 @@ namespace FBTW.Enemies
                     tU.setSearchingForHumans(true);
                 }
 
+                if(tU.foundWall())
+                {
+                    // Wall is near and in the attack range
+                    if (tU.IsWallInAttackRange())
+                    {
+                        tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", true);
+                        tU.TitanAttack(tU.foundWall());
+                    }
+                    // Wall is near but not in the attack range -> chase
+                    else
+                    {
+                        tU.AgentNotMoving(false);
+                        tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
+                        tU.attackTime = 0f;
+                        Transform nearestWall = CheckNearestWall(wallFound, tU);
+                        ApproachTarget(nearestWall, tU);
+                    }
+                }
                 // Move randomly if no humans nearby
-                if (tU.isSearchingForHumans())
+                else if (tU.isSearchingForHumans())
                 {
                     if (tU.GetComponent<Rigidbody>().IsSleeping())
                     {
@@ -90,7 +127,7 @@ namespace FBTW.Enemies
                     if(tU.IsEnemyInAttackRange())
                     {
                         tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", true);
-                        tU.TitanAttack();
+                        tU.TitanAttack(tU.foundWall());
                     }
                     // Human is near but not in the attack range -> chase
                     else
@@ -99,14 +136,10 @@ namespace FBTW.Enemies
                         tU.gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
                         tU.attackTime = 0f;
                         Transform nearestHuman = CheckNearestHuman(unitsFound, tU);
-                        ApproachHuman(nearestHuman, tU);
+                        ApproachTarget(nearestHuman, tU);
                     }
                 } 
-            }
-
-           
-            
-            
+            }         
         }
 
         public void WalksRandomly(TitanUnit tU)
@@ -137,7 +170,24 @@ namespace FBTW.Enemies
             return nearestHuman;
         }
 
-        private void ApproachHuman(Transform human, TitanUnit tU)
+        private Transform CheckNearestWall(List<Collider> wallFound, TitanUnit tU)
+        {
+            float minDist = 50f;
+            float wallDistance;
+            Transform nearestWall = wallFound[0].transform;
+            foreach (Collider unit in wallFound)
+            {
+                wallDistance = Vector3.Distance(unit.transform.position, tU.transform.position);
+                if (wallDistance < minDist)
+                {
+                    minDist = wallDistance;
+                    nearestWall = unit.transform;
+                }
+            }
+            return nearestWall;
+        }
+
+        private void ApproachTarget(Transform human, TitanUnit tU)
         {
             Vector3 attackDistance = tU.transform.position - tU.attackPoint.position;
             tU.MoveTitan(new Vector3(human.position.x + attackDistance.x, 0, human.position.z + attackDistance.z));

@@ -7,6 +7,7 @@ using FBTW.Resources;
 using FBTW.Units.Player;
 using FBTW.Units.Titans;
 using FBTW.Player;
+using FBTW.City;
 
 
 namespace FBTW.HUD
@@ -100,7 +101,10 @@ namespace FBTW.HUD
             DrawUnitCount(iconLeft, textLeft, topPos);
             iconLeft += TEXT_WIDTH;
             textLeft += TEXT_WIDTH;
-            DrawXP(iconLeft, textLeft, topPos);
+            DrawXP(textLeft, topPos);
+            iconLeft += 3*TEXT_WIDTH;
+            textLeft += 3*TEXT_WIDTH;
+            DrawWallHealth(textLeft, topPos);
             GUI.EndGroup();
         }
         public void SetResourceValues(int food/*, int gas, int blades*/)
@@ -125,10 +129,16 @@ namespace FBTW.HUD
             GUI.DrawTexture(new Rect(iconLeft, topPos, ICON_WIDTH, ICON_HEIGHT), m_unitTexture);
             GUI.Label(new Rect(textLeft, topPos*2, TEXT_WIDTH, TEXT_HEIGHT), text);
         }
-        private void DrawXP(int iconLeft, int textLeft, int topPos)
+        private void DrawXP(int textLeft, int topPos)
         {
             string text = "Skill Points " + ResourceManagement.getLevel().ToString() + "   " + ResourceManagement.getCurrentXP().ToString() + "/" + ResourceManagement.getXPToNextLevel().ToString();
-            GUI.Label(new Rect(textLeft, topPos*2, TEXT_WIDTH, TEXT_HEIGHT), text);
+            GUI.Label(new Rect(textLeft, topPos*2, 150, TEXT_HEIGHT), text);
+        }
+        private void DrawWallHealth(int textLeft, int topPos)
+        {
+            string text = "Wall Integrity " + CityManager.instance.getHealth().ToString() + "/" + CityManager.instance.getMaxHealth().ToString();
+
+            GUI.Label(new Rect(textLeft, topPos * 2, 150, TEXT_HEIGHT), text);
         }
     }
 
