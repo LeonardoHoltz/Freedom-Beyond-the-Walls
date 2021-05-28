@@ -16,6 +16,10 @@ namespace FBTW.Enemies
         public Transform titanUnits;
         public LayerMask unitsLayers;
 
+        private bool hasWaited = false;
+
+        private float timer = 1f;
+
         public GameManager gameManager;
 
         private int titanCount;
@@ -28,8 +32,16 @@ namespace FBTW.Enemies
 
         private void Update()
         {
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
+            else if (!hasWaited && timer <= 0)
+            {
+                hasWaited = true;
+            }
             titanCount = titanUnits.childCount;
-            if (titanCount <= 0)
+            if (titanCount <= 0 && hasWaited)
             {
                 gameManager.CompleteLevel();
             }

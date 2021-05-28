@@ -13,6 +13,7 @@ namespace FBTW.Game
         public float restartDelay = 1f;
 
         public GameObject completeLevelUI;
+        public GameObject EndGameUI;
 
         public void CompleteLevel()
         {
@@ -25,7 +26,7 @@ namespace FBTW.Game
             if (!gameEnded)
             {
                 gameEnded = true;
-                Debug.Log("GAME OVER");
+                EndGameUI.SetActive(true);
                 Invoke("Restart", restartDelay);
             }
         }
