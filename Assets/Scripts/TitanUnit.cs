@@ -34,6 +34,7 @@ namespace FBTW.Units.Titans
         {
             currentHealth = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
+            gameObject.GetComponent<AudioSource>().Play();
         }
 
         // Update is called once per frame
