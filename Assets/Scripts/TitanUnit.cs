@@ -44,6 +44,8 @@ namespace FBTW.Units.Titans
             {
                 TitanAttack();
             }
+
+
         }
 
         public void TakeDamage(int damage)

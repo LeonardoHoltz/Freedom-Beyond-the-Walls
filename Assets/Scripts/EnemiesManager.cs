@@ -5,6 +5,7 @@ using UnityEngine;
 using FBTW.InputManager;
 using FBTW.Units.Titans;
 using FBTW.HUD;
+using FBTW.Game;
 
 namespace FBTW.Enemies
 {
@@ -15,6 +16,10 @@ namespace FBTW.Enemies
         public Transform titanUnits;
         public LayerMask unitsLayers;
 
+        public GameManager gameManager;
+
+        private int titanCount;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -23,8 +28,14 @@ namespace FBTW.Enemies
 
         private void Update()
         {
+            titanCount = titanUnits.childCount;
+            if (titanCount <= 0)
+            {
+                gameManager.CompleteLevel();
+            }
             foreach (Transform titan in titanUnits)
             {
+                
                 TitanUnit tU = titan.gameObject.GetComponent<TitanUnit>();
                 HandleTitanActions(tU);
             }
